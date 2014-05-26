@@ -21,9 +21,9 @@ selfAddon = xbmcaddon.Addon(id=addon_id)
 art = main.art
 
 ################################################################################ Directories ##########################################################################################################
-#UpdatePath=os.path.join(main.datapath,'Update')
-#try: os.makedirs(UpdatePath)
-#except: pass
+UpdatePath=os.path.join(main.datapath,'Update')
+try: os.makedirs(UpdatePath)
+except: pass
 CachePath=os.path.join(main.datapath,'Cache')
 try: os.makedirs(CachePath)
 except: pass
@@ -133,7 +133,7 @@ def MAIN():
 def Announcements():
     #Announcement Notifier from xml file
     try:
-        link=main.OPENURL('https://raw.github.com/mash2k3/MashUpNotifications/master/Notifier.xml',verbose=False)
+        link=main.OPENURL('http://dl.dropboxusercontent.com/u/90916090/textfiles/MashUpNotifications/Notifier.xml',verbose=False)
         link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
     except: link='nill'
     r = re.findall(r'ANNOUNCEMENTWINDOW ="ON"',link)
@@ -194,7 +194,7 @@ def Announcements():
 
 def CheckForAutoUpdate(force = False):
     GitHubRepo    = 'AutoUpdate'
-    GitHubUser    = 'mash2k3'
+    GitHubUser    = 'ykhehra1'
     GitHubBranch  = 'master'
     UpdateVerFile = 'update'
     RunningFile   = 'running'
@@ -3972,7 +3972,7 @@ elif mode == 1500:
 elif mode == 1501:
     AddToDixie(plot,name,url,iconimage)
     
-#elif mode == 1998:
+elif mode == 1998:
     if ENV is 'Prod':
         CheckForAutoUpdate(True)
     else:

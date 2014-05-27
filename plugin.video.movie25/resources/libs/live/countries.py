@@ -31,7 +31,7 @@ def COUNTRIESList(mname,murl):
         main.VIEWSB()
 def COUNTRIESLink(mname,url,thumb):
         ok = True
-        if '.f4m'in murl:
+        if '.f4m'in url:
                 from resources.universal import F4mProxy
                 player=F4mProxy.f4mProxyHelper()
                 proxy=None

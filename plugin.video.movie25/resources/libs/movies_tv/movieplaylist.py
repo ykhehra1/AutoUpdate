@@ -81,17 +81,17 @@ def MList(mname,murl):
         for name,url,thumb in match:
                 
                 if '</sublink>' in url:
-                        main.addDown4(name+' [COLOR blue]BDTV[/COLOR]',url,249,thumb,'',fan,'','','')
+                        main.addDown4(name,url,249,thumb,'',fan,'','','')
                 elif '</referer>' in url:
-                        main.addDown4(name+' [COLOR blue]BDTV[/COLOR]',url,259,thumb,'',fan,'','','')
+                        main.addDown4(name,url,259,thumb,'',fan,'','','')
                 elif '</dirlist>' in url:
                         xurl = re.findall('<dirlist>(.+?)</dirlist>', url)[0]
                         main.addDirb(name,xurl,236,thumb,fan)
                 elif '</noMeta>' in url:
                         xurl = re.findall('<noMeta>(.+?)</noMeta>', url)[0]
-                        main.addPlayc(name+' [COLOR blue]BDTV[/COLOR]',xurl,237,thumb,'',fan,'','','')
+                        main.addPlayc(name,xurl,237,thumb,'',fan,'','','')
                 else:        
-                        main.addDown4(name+' [COLOR blue]BDTV[/COLOR]',url,237,thumb,'',fan,'','','')
+                        main.addDown4(name,url,237,thumb,'',fan,'','','')
                 loadedLinks = loadedLinks + 1
                 percent = (loadedLinks * 100)/totalLinks
                 remaining_display = 'Movies loaded :: [B]'+str(loadedLinks)+' / '+str(totalLinks)+'[/B].'

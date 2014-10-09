@@ -57,7 +57,7 @@ def VIP(murl):
                         match=re.compile('<item><name>([^<]+)</name.+?link>([^<]+)</link.+?thumbnail>([^<]+)</thumbnail.+?username>([^<]+)</username></item>').findall(link)
                         for name,url,thumb,user in match:
                             if debriduser == user or debriduser == 'mash2k3' or debriduser == 'hackermil':
-                                main.addDirc(name+' [COLOR red]BDTV[/COLOR]',url,261,thumb,'',fan,'','','')
+                                main.addDirc(name,url,261,thumb,'',fan,'','','')
                         main.GA("Vip++",vip+"-Directory")
                      else:
                         xbmc.executebuiltin("XBMC.Notification(VIP++,Login failed.,3000,"+smalllogo+")")
@@ -96,9 +96,9 @@ def VIPList(murl):
         dialogWait.update(0,'[B]Will load instantly from now on[/B]',remaining_display)
         for name,url,thumb in match:
                 if '</sublink>' in url:
-                        main.addDown4(name+' [COLOR blue]BDTV[/COLOR]',url,262,thumb,'',fan,'','','')
+                        main.addDown4(name,url,262,thumb,'',fan,'','','')
                 else:
-                        main.addDown4(name+' [COLOR blue]BDTV[/COLOR]',url,263,thumb,'',fan,'','','')
+                        main.addDown4(name,url,263,thumb,'',fan,'','','')
                 loadedLinks = loadedLinks + 1
                 percent = (loadedLinks * 100)/totalLinks
                 remaining_display = 'Movies loaded :: [B]'+str(loadedLinks)+' / '+str(totalLinks)+'[/B].'

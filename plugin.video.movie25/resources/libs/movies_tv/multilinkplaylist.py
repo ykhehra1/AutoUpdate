@@ -64,7 +64,7 @@ def MList(mname,murl):
         remaining_display = 'Movies loaded :: [B]'+str(loadedLinks)+' / '+str(totalLinks)+'[/B].'
         dialogWait.update(0,'[B]Will load instantly from now on[/B]',remaining_display)
         for name,fan,thumb,url in match:
-                main.addDown4(name+' [COLOR blue]BDTV[/COLOR]',url,247,thumb,'',fan,'','','')
+                main.addDown4(name,url,247,thumb,'',fan,'','','')
                 loadedLinks = loadedLinks + 1
                 percent = (loadedLinks * 100)/totalLinks
                 remaining_display = 'Movies loaded :: [B]'+str(loadedLinks)+' / '+str(totalLinks)+'[/B].'

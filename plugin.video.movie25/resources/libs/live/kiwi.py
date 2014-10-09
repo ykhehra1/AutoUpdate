@@ -11,14 +11,14 @@ selfAddon = xbmcaddon.Addon(id=addon_id)
 addon = Addon('plugin.video.movie25', sys.argv)
 art = main.art
 tzname = selfAddon.getSetting('tzname')
-
+BASEURL='http://www.coolsport.se/'
 
 def CleanTime(time):
     tztime = selfAddon.getSetting('tztime')
     time=time.lower()
     if 'pm' in time:
         time=time.replace('pm','')
-        digit=re.search('(\d+).(\d{2})',time)
+        digit=re.search('(\d+).(\d+)',time)
         if '-' in tztime:
             tztime=tztime.replace('-','')
             if int(digit.group(1))==12:
@@ -48,7 +48,7 @@ def CleanTime(time):
                 finaltime= str(settime)+':'+digit.group(2)+'PM'
     else:
         time=time.replace('am','')
-        digit=re.search('(\d+).(\d{2})',time)
+        digit=re.search('(\d+).(\d+)',time)
         if '-' in tztime:
             tztime=tztime.replace('-','')
             if int(digit.group(1))==12:
@@ -80,28 +80,29 @@ def CleanTime(time):
                 
     
 def MAIN():
-    main.addLink('[COLOR yellow]Time Zone:[/COLOR] [COLOR orange]'+tzname+'[/COLOR]','',art+'/twittermash.png')
-    main.addSpecial('[COLOR blue]Change Time Zone[/COLOR]','tz',440,art+'/twittermash.png')
-    main.addDir('[COLOR orange]****** All Streams ******[/COLOR]','tz',442,art+'/twittermash.png')
-    link=main.OPENURL('http://www.coolsport.tv/schedule-coolsport-tv.html')
+    main.addLink('[COLOR yellow]Time Zone:[/COLOR] [COLOR orange]'+tzname+'[/COLOR]','',art+'/kiwi.png')
+    main.addSpecial('[COLOR blue]Change Time Zone[/COLOR]','tz',440,art+'/kiwi.png')
+    main.addDir('[COLOR orange]****** All Streams ******[/COLOR]','tz',442,art+'/kiwi.png')
+    link=main.OPENURL('http://www.coolsport.se')
     link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
     match=re.compile('<font color="red" size="6">(.+?)</font><p>(.*?)size="6').findall(link)
     for date,streams in match:
         main.addLink('[COLOR red]'+date+'[/COLOR]','',art+'/twittermash.png')
-        match2=re.compile('(?sim)<font color="gold"> ([^<]+) </font> (.+?) (\d+.\d+\D+)-(\d+.\d+\D+) <font color="red">(.+?)</font><p>').findall(streams)
+        match2=re.compile("(?sim)<font color='.+?'> ([^<]+) -<font color='white'> (.+?) (\d+.\d+\D+)-(\d+.\d+\D+) </font></font><font color='red'>(.+?)</font>").findall(streams)
+                                #<font color='white'> (.+?) </font></font><font color='red'> (Stream 27) </font></a></li><p>
         for lang,name,t1,t2,url in match2:
             t1=CleanTime(t1)
             t2=CleanTime(t2)
             #url=url.lower().replace(' ','').replace('skysports','ss')
             name = name.decode("ascii", "ignore")
-            main.addPlayL('[COLOR orange]'+lang+'[/COLOR] '+name+' [COLOR yellow]'+t1+' - '+t2+'[/COLOR] [COLOR red]'+url+'[/COLOR]',url.lower().replace(' ','').replace('skysports','ss'),441,'','','','','','',secName='iLive',secIcon=art+'/ilive.png')
+            main.addPlayL('[COLOR orange]'+lang+'[/COLOR] '+name+' [COLOR yellow]'+t1+' - '+t2+'[/COLOR] [COLOR red]'+url+'[/COLOR]',BASEURL+url.lower().replace('(','').replace(')','').replace(' ','')+'.html',441,'','','','','','',secName='Kiwi',secIcon=art+'/kiwi.png')
 
 def AllStreams():
-    link=main.OPENURL('http://www.coolsport.tv/schedule-coolsport-tv.html')
+    link=main.OPENURL('http://www.coolsport.se')
     link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','').replace('>Twitter</a></li>','').replace('>Contact Us</a></li>','')
     match=re.compile('<li><a href="([^"]+)">([^<]+)</a></li>').findall(link)
     for url,name in match:
-        main.addPlayL(name,url,441,'','','','','','',secName='Kiwi',secIcon=art+'/kiwi.png')
+        main.addPlayL(name,BASEURL+url,441,'','','','','','',secName='Kiwi',secIcon=art+'/kiwi.png')
     
 def setTimeZone():
     dialog = xbmcgui.Dialog()
@@ -128,30 +129,28 @@ def SelectHost(url):
 def GetStream(url):
     link=main.OPENURL(url)
     surl2=re.findall('url=(http.+?)">',link)
-    surl=re.findall('<div id="I12_html">.+?src="([^"]+)"',main.OPENURL(surl2[0]))
-    js=re.findall("src='(.+?.js)'",main.OPENURL(surl[0]))
-    return js[0]
-    
-    
+    try:surl=re.findall('<div id="I12_html">.+?src="([^"]+)"',main.OPENURL(surl2[0]))
+    except:surl=re.findall('<div id="I12_html">.+?src="([^"]+)"',link)
+    if url:
+        link=main.OPENURL(surl[0])
+        link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','').replace("\/",'/')
+        playpath=re.compile("<script type='text/javascript'>id='([^']+?)';").findall(link)
+        rtmp='rtmp://185.2.137.204:443/liverepeater'
+        pageurl='http://thesun.pw/player2.php?id='+playpath[0]+'&width=640&height=460'
+        token='#atd%#$ZH'
+        stream_url =rtmp+' playpath='+playpath[0]+' swfUrl=http://static.surk.tv/atdedead.swf pageUrl=' + pageurl +' live=1 timeout=14 swfVfy=1 token='+token
+        return stream_url
+  
 def Link(mname,murl,thumb):
         main.GA("Kiwi","Watched")
         stream_url=False
-        if 'http' in murl:
-            murl=GetStream(murl)
-        else:
-            murl=SelectHost(murl)
+        stream_url=GetStream(murl)
         xbmc.executebuiltin("XBMC.Notification(Please Wait!,Opening Stream,3000)") 
-        site=re.findall('src="([^"]+)"',main.OPENURL(murl))
-        link=main.OPENURL(site[0])
+        
         ok=True
-        if link:
+        if stream_url:
                 playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
                 playlist.clear()
-                link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','').replace("\/",'/')
-                rtmp=re.compile("'streamer':.+?'([^']+?)'").findall(link)
-                playpath=re.compile("'file':.+?'([^']+?)'").findall(link)
-                token='#atd%#$ZH'
-                stream_url =rtmp[0]+' playpath='+playpath[0]+' pageUrl=' + site[0] +' live=1 timeout=14 swfVfy=1 token='+token
                 listitem = xbmcgui.ListItem(thumbnailImage=thumb)
                 infoL={'Title': mname, 'Genre': 'Live'} 
                 from resources.universal import playbackengine

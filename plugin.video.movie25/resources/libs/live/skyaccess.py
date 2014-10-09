@@ -58,8 +58,9 @@ def setCookie(srDomain):
         post_data['amember_pass'] = passw
         for name, value in r:
             post_data[name] = value
-        net().http_GET('http://hostaccess.org/amember/login')
-        net().http_POST('http://hostaccess.org/amember/login',post_data)
+        print post_data
+        net().http_GET('https://hostaccess.org/amember/protect/new-rewrite?f=2&url=/member1/&host=hostaccess.org&ssl=off')
+        net().http_POST('https://hostaccess.org/amember/protect/new-rewrite?f=2&url=/member1/&host=hostaccess.org&ssl=off',post_data)
         net().save_cookies(cookie_file)
     else:
         net().set_cookies(cookie_file)
@@ -77,21 +78,27 @@ def MAINSA():
     link = response.content
     link = cleanHex(link)
     link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','').replace('  ','')
-    if '<title>Axxess Menu</title>' in link:
+    print link
+    if '<title>Axxess Streams </title>' in link:
         main.addLink('[COLOR red]Elite Member[/COLOR]','','')
     else:
         main.addLink('[COLOR red]Free Member[/COLOR]','','')
     main.addDir('Free Streams','http://sportsaccess.se/forum/misc.php?page=livestreams',412,art+'/skyaccess.png')
-    if '<title>Axxess Menu</title>' in link:
+    if '<title>Axxess Streams </title>' in link:
         main.addDir('Elite Streams',link,410,art+'/skyaccess.png')
     main.addPlayc('[COLOR blue]Click here for Subscription Info[/COLOR]','https://dl.dropboxusercontent.com/u/35068738/picture%20for%20post/sky.png',244,art+'/skyaccess.png','','','','','')
+    main.GA("Live","SportsAccess")
 
 def LISTMENU(murl):
-    match=re.compile('<li><a href="(.+?)"><center>(.+?)<img src="(.+?)"/></a></li>').findall(murl)
-    for url,name,thumb in match:
-        thumb=thumb.replace('http://i.imgur.com/D2gzK0U.png','http://i.imgur.com/zo1FeZA.png').replace('http://cdn0.agoda.net/images/default/icon_questionmark.png','http://i.imgur.com/R7xiSJg.png').replace('http://i.imgur.com/8h0WVhG.png','http://i.imgur.com/KF3PQAV.png').replace('http://i.imgur.com/my0hcfg.png','http://i.imgur.com/uQunKHh.png').replace('http://i.imgur.com/ufhNZ8q.png','http://i.imgur.com/OOaeIzT.png')
+    print "hhop"
+    i=0
+    match=re.compile('<li><a href="([^"]+)"><center>(.+?)</a>').findall(murl)                 
+    for url,name in match:
+        thumb=['http://i.imgur.com/zo1FeZA.png','http://i.imgur.com/R7xiSJg.png','http://i.imgur.com/KF3PQAV.png','http://i.imgur.com/uQunKHh.png','http://i.imgur.com/OOaeIzT.png']
         name = re.sub('(?sim)<[^>]*?>','',name)
-        main.addDir(name,url,411,thumb)
+        if 'http' not in url: url = 'http://hostaccess.org'+url
+        main.addDir(name,url,411,thumb[i])
+        i=i+1
 
 def LISTMENU2(murl):
     response = net().http_GET(murl)
@@ -105,18 +112,30 @@ def LISTMENU2(murl):
         main.addDir(name,'http://sportsaccess.se'+url,411,thumb)
 
 def LISTCONTENT(murl,thumb):
+    setCookie(murl)
     response = net().http_GET(murl)
     link = response.content
     link = cleanHex(link)
     link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','').replace('  ','')
-    match=re.compile('<a href="(.+?)">(.+?)</a>').findall(link)
-
-    for url,name in match:
-        if 'GO BACK' not in name and '1 Year Subscriptions' not in name and 'Live Broadcasts' not in name:
-            name = re.sub('(?sim)<[^>]*?>','',name)
-            if 'http' not in url:
-                url='http://sportsaccess.se'+url
-            main.addPlayL(name,url,413,thumb,'','','','','')
+    if 'http://hostaccess.org/7-SFE-SZE-HOSTACCESS/media/vod.php' == murl:
+        response = net().http_GET('http://sportsaccess.se/forum/misc.php?page=Replays')
+        link = response.content
+        link = cleanHex(link)
+        link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','').replace('  ','')
+        
+        match=re.compile('<a href="([^"]+)"><img src="([^"]+)" width=".+?alt="([^"]+)"></a>').findall(link)
+        for url,thumb,name in match:
+            if 'http' not in thumb:
+                    thumb='http://sportsaccess.se/forum/'+thumb
+            main.addDir(name,url,411,thumb)
+    else:
+        match=re.compile('<a href="(.+?)">(.+?)</a>').findall(link)
+        for url,name in match:
+            if 'GO BACK' not in name and '1 Year Subscriptions' not in name and 'Live Broadcasts' not in name and '<--- Return To On Demand Guide' not in name:
+                name = re.sub('(?sim)<[^>]*?>','',name)
+                if 'http' not in url:
+                    url='http://sportsaccess.se'+url
+                main.addPlayL(name,url,413,thumb,'','','','','')
 
 
 def get_link(murl):
@@ -125,14 +144,31 @@ def get_link(murl):
     link = response.content
     link = cleanHex(link)
     link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','').replace('  ','')
-    swf=re.findall("src='([^<]+).swf'",link)[0]
-    file=re.findall("file=(.+?)&",link)[0]
-    file=file.replace('.flv','')
-    streamer=re.findall("streamer=(.+?)&",link)[0]
-    return streamer+' playpath='+file+' swfUrl='+swf+'.swf pageUrl='+murl+' live=true timeout=20'
+    m3u8=re.findall('<a href="([^"]+?.m3u8)">',link)
+    iframe=re.findall('<iframe src="(http://admin.livestreamingcdn.com[^"]+?)"',link)
+    if m3u8:
+        return m3u8[0]
+    elif iframe:
+        response = net().http_GET(iframe[0])
+        link = response.content
+        link = cleanHex(link)
+        link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','').replace('  ','')
+        vlink=re.findall('file: "([^"]+?.m3u8)"',link)
+        return vlink[0]
+    else:
+        swf=re.findall("src='([^<]+).swf'",link)[0]
+        file=re.findall("file=(.+?)&",link)[0] 
+        file=file.replace('.flv','')
+        streamer=re.findall("streamer=(.+?)&",link)[0]
+        if '.mp4' in file and 'vod' in streamer:
+            file='mp4:'+file
+            return streamer+' playpath='+file+' swfUrl='+swf+'.swf pageUrl='+murl
+        else:
+            return streamer+' playpath='+file+' swfUrl='+swf+'.swf pageUrl='+murl+' live=true timeout=20'
     
 def PLAYLINK(mname,murl,thumb):
         ok=True
+        main.GA("Live","SportsAccess")
         stream_url = get_link(murl)     
         playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
         playlist.clear()

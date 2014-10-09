@@ -75,7 +75,8 @@ def PLAYOCW(mname,murl):
         xbmc.executebuiltin("XBMC.Notification(Please Wait!,Collecting Hosts,5000)")
         link=main.OPENURL(murl)
         link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
-        match=re.compile('<p><a href="([^"]+?)".*?>().+?</a></p>').findall(link)
+        
+        match=re.compile('<a href="([^"]+?)" rel="nofollow">([^>]+?)</a>').findall(link)
         if len(match)==0:                
             match=re.compile('<a href="(.+?)">(.+?)</a><br />').findall(link)
         desc=re.compile('<.+? />Plot:(.+?)<.+? />').findall(link)
@@ -118,14 +119,18 @@ def PLAYOCW(mname,murl):
                 imdb_id=infoLabels['imdb_id']
                 infolabels = { 'supports_meta' : 'true', 'video_type':video_type, 'name':str(infoLabels['title']), 'imdb_id':str(infoLabels['imdb_id']), 'season':str(season), 'episode':str(episode), 'year':str(infoLabels['year']) }
                 infoL={'Title': infoLabels['title'], 'Plot': infoLabels['plot'], 'Genre': infoLabels['genre']}
-                # play with bookmark
+                from resources.universal import playbackengine
                 player = playbackengine.PlayWithoutQueueSupport(resolved_url=stream_url, addon_id=addon_id, video_type=video_type, title=str(infoLabels['title']),season=str(season), episode=str(episode), year=str(infoLabels['year']),img=img,infolabels=infoL, watchedCallbackwithParams=main.WatchedCallbackwithParams,imdb_id=imdb_id)
                 #WatchHistory
                 if selfAddon.getSetting("whistory") == "true":
-                        wh.add_item(mname+' '+'[COLOR green]Oneclickwatch[/COLOR]', sys.argv[0]+sys.argv[2], infolabels=infolabels, img=img, fanart=fanart, is_folder=False)
+                    from resources.universal import watchhistory
+                    wh = watchhistory.WatchHistory('plugin.video.movie25')
+                    wh.add_item(mname+' '+'[COLOR green]Oneclickwatch[/COLOR]', sys.argv[0]+sys.argv[2], infolabels='', img=img, fanart='', is_folder=False)
                 player.KeepAlive()
                 return ok
-        except:
+        except Exception, e:
+                if stream_url != False:
+                        main.ErrorReport(e)
                 return ok
         
 

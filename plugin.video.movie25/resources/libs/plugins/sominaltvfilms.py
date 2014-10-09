@@ -24,20 +24,20 @@ wh = watchhistory.WatchHistory('plugin.video.movie25')
 def MAIN():
         main.GA("Plugin","SominalTv")
         main.addDir('Search','xoxe',624,art+'/search.png')
-        main.addDir('Hindi','http://www.sominaltvfilms.com/category/hindi-movies',620,art+'/hindi.png')
-        main.addDir('Telugu','http://www.sominaltvfilms.com/category/telugu',620,art+'/telugu.png')
-        main.addDir('Tamil','http://www.sominaltvfilms.com/category/tamil',620,art+'/tamil.png')
-        main.addDir('Malayalam','http://www.sominaltvfilms.com/category/malayalam',620,art+'/malayalam.png')
-        main.addDir('Punjabi','http://www.sominaltvfilms.com/category/punjabi',620,art+'/punjabi.png')
-        main.addDir('BluRay','http://www.sominaltvfilms.com/category/bluray',620,art+'/bluray.png')
-        main.addDir('All English Subtitled Movies','http://www.sominaltvfilms.com/category/english-subtitled',620,art+'/subtitled.png')
-        main.addDir('All Hindi Dubbed Movies','http://www.sominaltvfilms.com/category/hindi-dubbed',620,art+'/dubbed.png')
+        main.addDir('Hindi','http://www.playindiafilms.com/hindi-movies',620,art+'/hindi.png')
+        main.addDir('Telugu','http://www.playindiafilms.com/telugu',620,art+'/telugu.png')
+        main.addDir('Tamil','http://www.playindiafilms.com/tamil',620,art+'/tamil.png')
+        main.addDir('Malayalam','http://www.playindiafilms.com/malayalam',620,art+'/malayalam.png')
+        main.addDir('Punjabi','http://www.playindiafilms.com/punjabi',620,art+'/punjabi.png')
+        main.addDir('BluRay','http://www.playindiafilms.com/bluray',620,art+'/bluray.png')
+        main.addDir('All English Subtitled Movies','http://www.playindiafilms.com/english-subtitled',620,art+'/subtitled.png')
+        main.addDir('All Hindi Dubbed Movies','http://www.playindiafilms.com/hindi-dubbed',620,art+'/dubbed.png')
 
 
 def AtoZ(url):
-    main.addDir('0-9','http://www.sominaltvfilms.com/search/label/%23'+url+'?&max-results=15',620,art+'/09.png')
+    main.addDir('0-9','http://www.playindiafilms.com/search/label/%23'+url+'?&max-results=15',620,art+'/09.png')
     for i in string.ascii_uppercase:
-            main.addDir(i,'http://www.sominaltvfilms.com/search/label/'+i+url+'?&max-results=15',620,art+'/'+i.lower()+'.png')
+            main.addDir(i,'http://www.playindiafilms.com/search/label/'+i+url+'?&max-results=15',620,art+'/'+i.lower()+'.png')
     main.GA("Watchseries","A-Z")
     main.VIEWSB()
     
@@ -47,7 +47,7 @@ def SEARCH():
         if (keyb.isConfirmed()):
                 search = keyb.getText()
                 encode=urllib.quote(search)
-                surl='http://www.sominaltvfilms.com/?s='+encode
+                surl='http://www.playindiafilms.com/?s='+encode
         link=main.OPENURL(surl)
         link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
         match=re.compile('<img width=".+?" height=".+?" src="(.+?)" class=".+?" alt=".+?".+?<h1 class=".+?"><a class=".+?" href="(.+?)" title=".+?">(.+?)</a></h1>.+?<div class="excerpt-wrapper"><div class="excerpt"><p>(.+?)</p>').findall(link)
@@ -61,30 +61,31 @@ def SEARCH():
 def LIST(mname,murl):
         main.GA("SominalTv","List")
         if mname=='Hindi':
-                main.addDir('Hindi English Subtitled','http://www.sominaltvfilms.com/category/hindi-movies-english-subtitles',620,art+'/subtitled.png')
-                main.addDir('Hindi BluRay','http://www.sominaltvfilms.com/category/hindi-blurays',620,art+'/bluray.png')
+                main.addDir('Hindi English Subtitled','http://www.playindiafilms.com/hindi-movies-english-subtitles',620,art+'/subtitled.png')
+                main.addDir('Hindi BluRay','http://www.playindiafilms.com/hindi-blurays',620,art+'/bluray.png')
         elif mname=='Telugu':
-                main.addDir('Telugu English Subtitled','http://www.sominaltvfilms.com/category/telugu-movies-english-subtitles',620,art+'/subtitled.png')
-                main.addDir('Telugu BluRay','http://www.sominaltvfilms.com/category/telugu-blurays',620,art+'/bluray.png')
+                main.addDir('Telugu English Subtitled','http://www.playindiafilms.com/telugu-movies-english-subtitles',620,art+'/subtitled.png')
+                main.addDir('Telugu BluRay','http://www.playindiafilms.com/telugu-blurays',620,art+'/bluray.png')
         elif mname=='Tamil':
-                main.addDir('Tamil English Subtitled','http://www.sominaltvfilms.com/category/tamil-movies-english-subtitles',620,art+'/subtitled.png')
-                main.addDir('Tamil BluRay','http://www.sominaltvfilms.com/category/tamil-blurays',620,art+'/bluray.png')
+                main.addDir('Tamil English Subtitled','http://www.playindiafilms.com/tamil-movies-english-subtitles',620,art+'/subtitled.png')
+                main.addDir('Tamil BluRay','http://www.playindiafilms.com/tamil-blurays',620,art+'/bluray.png')
         elif mname=='Malayalam':
-                main.addDir('Malayalam English Subtitled','http://www.sominaltvfilms.com/category/malayalam-movies-english-subtitles',620,art+'/subtitled.png')
+                main.addDir('Malayalam English Subtitled','http://www.playindiafilms.com/malayalam-movies-english-subtitles',620,art+'/subtitled.png')
         elif mname=='Punjabi':
-                main.addDir('Punjabi English Subtitled','http://www.sominaltvfilms.com/category/punjabi-movies-english-subtitles',620,art+'/subtitled.png')
+                main.addDir('Punjabi English Subtitled','http://www.playindiafilms.com/punjabi-movies-english-subtitles',620,art+'/subtitled.png')
         elif mname=='All Hindi Dubbed Movies':
-                main.addDir('Dubbed BluRay','http://www.sominaltvfilms.com/category/hindi-dubbed-blurays',620,art+'/bluray.png')
+                main.addDir('Dubbed BluRay','http://www.playindiafilms.com/hindi-dubbed-blurays',620,art+'/bluray.png')
         link=main.OPENURL(murl)
         link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
-        match=re.compile("""<div class='inner'><figure><a href="([^<]+)"><img src="(.+?)" alt="(.+?)"/>.+?<div class='description'><div class='date'>.+?<p>(.+?)</p>""").findall(link)
+        match=re.compile("""<img src="([^"]+?)" alt="([^"]+?)"/> </a> </figure>.+?class="title"> <b><a href='([^']+?)'>.+?<div class='description'><div class='excerpt'><p>(.+?)...""").findall(link)
+                                                        
         dialogWait = xbmcgui.DialogProgress()
         ret = dialogWait.create('Please wait until Show list is cached.')
         totalLinks = len(match)
         loadedLinks = 0
         remaining_display = 'Movies loaded :: [B]'+str(loadedLinks)+' / '+str(totalLinks)+'[/B].'
         dialogWait.update(0,'[B]Will load instantly from now on[/B]',remaining_display)
-        for url,thumb,name,desc in match:
+        for thumb,name,url,desc in match:
                 desc=desc.replace('  ','')
                 name=main.unescapes(name)
                 main.addDirM(name,url,621,thumb,desc,thumb,'','','')
@@ -135,6 +136,15 @@ def unescapes(text):
 
 def getvideo2(murl,answer=''):
         link2=main.OPENURL(murl)
+        stream_url3= re.compile("f=(.+?)',").findall(link2)
+        if stream_url3:
+                link3=main.OPENURL(stream_url3[0])
+                stream_url4= re.compile("<hd>([^>]+?)</hd>").findall(link3)
+                if stream_url4:
+                        return stream_url4[0]
+                else:
+                        stream_url4= re.compile("<src>([^>]+?)</src>").findall(link3)
+                        return stream_url4[0]
         linkx=dekode(link2)
         stream_url2= re.compile('file: "(.+?)"').findall(linkx)
         if stream_url2:
@@ -145,11 +155,16 @@ def getvideo2(murl,answer=''):
                 SRT=os.path.join(datapath,'Sub.srt')
                 link2=link2.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','').replace('iframe src="//www.facebook.com','')
                 docUrl= re.compile('iframe src="(.+?preview)"').findall(link2)
-                print link2
-                if len(docUrl)==0:
+                if docUrl: docUrl=docUrl[0]
+                else:
                     link3=dekode(link2)
+                    print link3
                     try:
-                            docUrl= re.compile('iframe src="(.+?)"').findall(link3)
+                        docid= re.compile('docid=(.+?)\&').findall(link3)
+                        if docid:
+                                docUrl='https://docs.google.com/file/d/'+docid[0]+'/preview'
+                        else:
+                                docUrl= re.compile('iframe src="(.+?)"').findall(link3)[0]
                     except:
                         youtube= re.compile('<iframe width=".+?" height=".+?" src="http://www.youtube.com/embed/(.+?)" scrolling=".+?"').findall(link2)
                         url = "plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid="+youtube[0]+"&hd=1"
@@ -165,79 +180,11 @@ def getvideo2(murl,answer=''):
         
 
                 if docUrl:
-                
+                        print docUrl
                         xbmc.executebuiltin("XBMC.Notification(Please Wait!,Collecting Links,3000)")
-                        link2=main.OPENURL(docUrl[0])
-                        link2=link2.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','').replace('\/','/').replace('\\','')
-                        link2=unescapes(link2)
-                        match= re.compile('url_encoded_fmt_stream_map":"(.+?),"').findall(link2)[0]
-                        if match:
-                                subtitle_url_start= re.compile("\"ttsurl\":\"(.+?)\"").findall(link2)
-                                print unescapes(str(subtitle_url_start[0]))
-                                v_add= re.compile("id=(.+?)&").findall(subtitle_url_start[0])
-                                if v_add:
-                                        print v_add
-                                        subtitle_url_start = subtitle_url_start[0] + '&v=' + v_add[0]
-                                        subtitle_url_start = subtitle_url_start + '&name&lang=en&hl=en&format=1&type=track&kind'
-                                        print "Subtitle File="+str(subtitle_url_start)
-                                #Converts Xml file to SRT file
-                                try:
-                                        link=main.OPENURL(subtitle_url_start)
-                                        link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','').replace('<text start="0">','')
-                                except:
-                                        link=''
-                        
-                                submatch= re.compile('<text start="(.+?)" dur="(.+?)">(.+?)</text>').findall(link)
-                                if submatch:
-                                        i=1
-                                        for start,dur,text in submatch:
-                                                #Converts seconds to HH:MM:SS,MS format for srt file
-                                                text=text.replace('&#39;',"'").replace('&quot;','"').replace('&amp;',"&").replace("&#39;","'").replace('&lt;i&gt;','').replace("#8211;","-").replace('&lt;/i&gt;','').replace("&#8217;","'").replace('&amp;quot;','"').replace('&#215;','').replace('&#038;','').replace('&#8216;','').replace('&#8211;','').replace('&#8220;','').replace('&#8221;','').replace('&#8212;','')
-                                                dur=Decimal(start)+Decimal(dur)
-                                                dur=str(dur)
-                                                if(float(start)%1 != 0):
-                                                        start1=start.split('.')[0]
-                                                        start2=start.split('.')[1]
-                                                else:
-                                                        start1=start
-                                                        start2=0
-                                                start = time.strftime('%H:%M:%S', time.gmtime(float(start1)))
-                                                if(float(dur)%1 != 0):
-                                                        dur1=dur.split('.')[0]
-                                                        dur2=dur.split('.')[1]
-                                                else:
-                                                        dur1=dur
-                                                        dur2=0
-                                                dur = time.strftime('%H:%M:%S', time.gmtime(float(dur1)))
-                                                #creating srt file and saving it on mashup profile folder
-                                                open(SRT,'a').write("""
-        """+str(i)+"""
-        """+str(start)+","+str(start2)+" --> "+str(dur)+","+str(dur2)+"""
-        """+text+"""
-        """) 
-                                                i=i+1
+                        stream_url = main.resolve_url(docUrl.replace('\/','/'))
+                        return stream_url
 
-                                streams_map = str(match)
-                                print streams_map
-                                stream= re.compile('url=(.+?)&type=.+?&quality=(.+?)[,\"]{1}').findall(streams_map)
-                                for stream_url,stream_quality in stream:
-                                        stream_url = stream_url
-                                        stream_url = main.unescapes(stream_url)
-                                        urllist.append(stream_url)
-                                        stream_qlty = stream_quality.upper()
-                                        if (stream_qlty == 'HD720'):
-                                            stream_qlty = 'HD-720p'
-                                        elif (stream_qlty == 'LARGE'):
-                                            stream_qlty = 'SD-480p'
-                                        elif (stream_qlty == 'MEDIUM'):
-                                            stream_qlty = 'SD-360p'
-                                        namelist.append(stream_qlty)
-                                dialog = xbmcgui.Dialog()
-                                if answer=='x11g':
-                                        answer='0'
-                                else:
-                                        answer =dialog.select("Quality Select", namelist)
-                                return urllist[int(answer)]
         
                 
 def LINK2(mname,murl,thumb,desc):

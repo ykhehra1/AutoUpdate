@@ -298,3 +298,4 @@ def MLink2(mname,murl,thumb,muvideo=False):
                 xbmcPlayer = xbmc.Player()
                 xbmcPlayer.play(stream_url,listitem)
         
+

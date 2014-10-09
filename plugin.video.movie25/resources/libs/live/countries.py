@@ -36,7 +36,7 @@ def COUNTRIESLink(mname,url,thumb):
                 player=F4mProxy.f4mProxyHelper()
                 proxy=None
                 use_proxy_for_chunks=False
-                player.playF4mLink(murl, mname, proxy, use_proxy_for_chunks,'',thumb)
+                player.playF4mLink(url, mname, proxy, use_proxy_for_chunks,'',thumb)
                 if selfAddon.getSetting("whistory") == "true":
                     from resources.universal import watchhistory
                     wh = watchhistory.WatchHistory('plugin.video.movie25')

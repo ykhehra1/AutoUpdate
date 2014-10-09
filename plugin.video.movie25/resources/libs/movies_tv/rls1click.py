@@ -9,7 +9,7 @@ selfAddon = xbmcaddon.Addon(id=addon_id)
 art = main.art
 
 def LISTSP3(murl):
-    subpages = 5
+    subpages = 3
     if murl == 'HD':
         page = 1
         max = subpages
@@ -20,47 +20,45 @@ def LISTSP3(murl):
             max = int(pages[1])
         except:
             page = 1
-    url='http://dl4free.me/forumdisplay.php?fid=42'
+    url='http://rls1click.com/category/movies/1080p/'
     urls = []
     for n in range(subpages):
-        urls.append(url+"&page="+str(page+n))
+        if page+n == 1:
+            urls.append(url)
+        else:
+            urls.append(url+"page/"+str(page+n)+"/")
         if page+n == max: break
     page = page + subpages - 1
     link=main.batchOPENURL(urls)
-    if re.compile('class="pagination_last">(\d+?)</a>').findall(link):
-        max = int(re.compile('class="pagination_last">(\d+?)</a>').findall(link)[0])
-    link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','').replace('&#38;','&')
-    match=re.compile('(?sim)<a href="([^"]+?)" class="[^"]+?" id="[^"]+?">([^<]+?)</a></span>\s*?<div class="author smalltext"><a href="[^"]+?">(wroser|BollyCorner)</a></div>').findall(link)
+    if re.compile('"maxPages":"(\d+?)"').findall(link):
+        max = int(re.compile('"maxPages":"(\d+?)"').findall(link)[0])
+#     link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','').replace('&#38;','&')
+    match=re.compile('(?sim)<h1 class="post-title"><a href="([^"]+?)">([^<]+?)<.*?<img[^>]+?src="([^"]+?)"').findall(link)
     dialogWait = xbmcgui.DialogProgress()
     ret = dialogWait.create('Please wait until Movie list is cached.')
     totalLinks = len(match)
     loadedLinks = 0
     remaining_display = 'Movies loaded :: [B]'+str(loadedLinks)+' / '+str(totalLinks)+'[/B].'
     dialogWait.update(0,'[B]Will load instantly from now on[/B]',remaining_display)
-    for url, name, user in match:
+    for url, title, thumb  in match:
         url = url.decode('utf-8').encode('ascii', 'ignore')
-        url = 'http://dl4free.me/' + url
-        name=main.unescapes(name)
-        if not re.search('(?i)avc',name) and re.search('(?i)1080p?',name):
-            main.addPlayM(name,url,408,'','','','','','')
-            loadedLinks = loadedLinks + 1
-        else: totalLinks -= 1
+        main.addPlayM(title,url,408,thumb,'','','','','')
+        loadedLinks = loadedLinks + 1
         try:
             percent = (loadedLinks * 100)/totalLinks
         except: percent = 100
         remaining_display = 'Movies loaded :: [B]'+str(loadedLinks)+' / '+str(totalLinks)+'[/B].'
         dialogWait.update(percent,'[B]Will load instantly from now on[/B]',remaining_display)
-        if (dialogWait.iscanceled()):
-                return False
-    if page < max:
+        if dialogWait.iscanceled(): break
+    if page < max and loadedLinks >= totalLinks:
         main.addDir('Page ' + str(page/subpages) + ' [COLOR blue]Next Page >>>[/COLOR]',str(page+1)+','+str(max),407,art+'/next2.png')
     dialogWait.close()
     del dialogWait
-    main.GA("HD-TV","DL4Free")
+    main.GA("HD-TV","Rls1Click")
     main.VIEWS()
         
 def LINKSP3(mname,murl):
-    main.GA("DL4Free","Watched")
+    main.GA("Rls1Click","Watched")
     msg = xbmcgui.DialogProgress()
     msg.create('Please Wait!','')
     msg.update(0,'Collecting hosts')
@@ -68,70 +66,31 @@ def LINKSP3(mname,murl):
     link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','').replace('&#38;','&')
     sources=[]
     titles=[]
+    urls=[]
     ok=True
-    match0=re.compile('(?sim)<div class="meta">Download Links</div>.*?</div>').findall(link)
-    match1 = []
-    match2 = []
-    if match0:
-        match2=re.compile('(?sim)<p.*?</p>').findall(match0[0])
-        for paragraph in reversed(match2):
-            match1 +=re.compile('<a href="([^"]+?)"').findall(paragraph)
-    match = []
-    paragraphs = re.compile('(?sim)<code>.+?</code>').findall(link)
+    paragraphs=re.compile('(?sim)<strong>1-Click</strong>.*?<strong>1GB Links</strong>').findall(link)
     for paragraph in paragraphs:
-        domains = re.compile('https?://([^"]+?)/[^<^\]]+').findall(paragraph)
-        urls = re.compile('(https?://[^"]+?/[^<^\]]+)').findall(paragraph)
-        for d in domains:
-            if domains.count(d) > 1:
-                while d in domains:
-                    index = domains.index(d)
-                    domains.pop(index)
-                    urls.pop(index)
-        match += urls
+        urls = re.compile('href="(https?://[^<^\]^"]+)"').findall(paragraph)
 #         match=re.compile('<a href="([^<]+)">htt').findall(link)
-    match = match1 + match
-    mainlinks = len(match1)
-    numpar = len(match2)
-    hostsmax = len(match)
+#     match = match1 + match
+    print urls
+    hostsmax = len(urls)
     h = 0
     from urlparse import urlparse
-    for url in match:
+    for url in urls:
         h += 1
         percent = (h * 100)/hostsmax
         msg.update(percent,'Collecting hosts - ' + str(percent) + '%')
         if msg.iscanceled(): break
-        vlink=re.compile('rar|part\d+?(\.html)?$|/folder/').findall(url)
-        if len(vlink)==0:
-            firstword = mname.partition(' ')[0]
-            if re.search('(?i)'+mname.partition(' ')[0],url):
-                if re.search('(?i)1080p?',mname):
-                    if not re.search('(?i)1080p?',url): continue 
-                if re.search('(?i)720p',mname):
-                    if not re.search('(?i)720p?',url): continue 
-            if re.search('(?i)1080p?',mname):
-                if re.search('(?i)720p|dvdrip|480p/|xvid',url): continue
-            if re.search('(?i)720p?',mname):
-                if re.search('(?i)1080p?|dvdrip|480p|xvid',url): continue
-            if re.search('(?i)xvid|480p',mname) or not re.search('(?i)1080p?|720p?',mname):
-                if re.search('(?i)1080p?|720p?',url): continue
-#                 url = url.replace('ul.to','uploaded.net')
+        if '1fichier' in url:
+            host = '1fichier'
+        else:
             host = urlparse(url).hostname.replace('www.','').partition('.')[0]
-            hostname = host
-            host = host.upper()
-            if h <= mainlinks and numpar == 1: quality = mname
-            else: quality = url
-            match3=re.compile('(?i)(720p?|1080p?)').findall(quality)
-            if match3 and not 'p' in match3[0]: match3[0] += 'p'
-            match4=re.compile('mp4').findall(url)
-            if len(match3)>0:
-                host =host+' [COLOR red]'+match3[0]+'[/COLOR]'
-            elif len(match4)>0:
-                host =host+' [COLOR green]SD MP4[/COLOR]'
-            else:
-                host =host+' [COLOR blue]SD[/COLOR]'
-            if main.supportedHost(hostname):
-                titles.append(host)
-                sources.append(url)
+        hostname = host
+        host = host.upper()
+        if main.supportedHost(hostname):
+            titles.append(host + ' [COLOR red]1080P[/COLOR]')
+            sources.append(url)
     msg.close()
     if (len(sources)==0):
         xbmc.executebuiltin("XBMC.Notification(Sorry!,Could not find a playable link,3000)")

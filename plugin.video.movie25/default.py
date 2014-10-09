@@ -129,7 +129,7 @@ def MAIN():
 	#main.addPlayc('Upload Log','http://www.movie25.so/',156,art+'/loguploader.png','','','','','')
 	#main.addPlayc('Click Me!!!','https://raw.github.com/mash2k3/MashupArtwork/master/skins/vector/donation.png',244,art+'/paypalmash2.png','','','','','')
 	#main.addSpecial('@mashupxbmc','','',art+'/twittermash.png')
-	#main.addPlayc('MashUp Settings','http://www.movie25.so/',1999,art+'/MashSettings.png','','','','','')
+	main.addPlayc('MashUp Settings','http://www.movie25.so/',1999,art+'/MashSettings.png','','','','','')
               
 def Announcements():
     #Announcement Notifier from xml file

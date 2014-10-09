@@ -7,7 +7,7 @@ try:
 except Exception, e:
     elogo = xbmc.translatePath('special://home/addons/plugin.video.movie25/resources/art/bigx.png')
     dialog = xbmcgui.Dialog()
-    ok=dialog.ok('[B][COLOR=FF67cc33]Mash Up Import Error[/COLOR][/B]','Failed To Import Needed Modules',str(e),'Report missing Module at [COLOR=FF67cc33]mashupxbmc.com[/COLOR] to Fix')
+    ok=dialog.ok('[B][COLOR=FF67cc33]Mash Up Import Error[/COLOR][/B]','Failed To Import Needed Modules',str(e),'Report missing Module at [COLOR=FF67cc33]bdtvbox@gmail.com[/COLOR] to Fix')
     xbmc.log('Mash Up ERROR - Importing Modules: '+str(e), xbmc.LOGERROR)
     
 #Mash Up - by Mash2k3 2012.
@@ -93,24 +93,22 @@ def MAIN():
             main.addDirHome('Kids Zone','http://www.movie25.so/',76,art+'/kidzone2.png')
         elif index==23:
             main.addDirHome('Documentaries','http://www.movie25.so/',85,art+'/docsec1.png')
-        elif index==24:
-#            main.addDirHome("Mash Up How To's",'how',16,art+'/howto.png')
-#        elif index==25:
-#            main.addDirHome('Fixes','http://www.movie25.so/',784,art+'/fixes.png')
-#        elif index==26:
+       #elif index==24:
+           #main.addDirHome("Mash Up How To's",'how',16,art+'/howto.png')
+       #elif index==25:
+           #main.addDirHome('Fixes','http://www.movie25.so/',784,art+'/fixes.png')
+        elif index==26:
             main.addDirHome('HackerMils Stash','https://raw.github.com/HackerMil/HackerMilsMovieStash/master/Directory/HackerMil_Directory.xml',235,art+'/hackermil.png')
         elif index==27:
             main.addDirHome('The New Pirate Bay','https://raw.github.com/mash2k3/MashUpTNPB/master/TNPB_Directory.xml',235,art+'/tnpb.png')
-        elif index==28:
-            main.addDirHome('MorePower','https://raw.github.com/mash2k3/MashUpMorePower/master/MorePower_Directory.xml',235,art+'/morepower.png')
         elif index==29:
-            main.addDirHome('Staael 1982','https://raw.github.com/mash2k3/Staael1982/master/Staael_Directory.xml',235,art+'/staael2014.png')
+            main.addDirHome('Staael 1982','https://raw.github.com/Coolstreams/bobbyelvis/master/Staael_Directory.xml',235,art+'/staael2014.png')
         elif index==34:
             main.addDirHome('Demon88 Movies','https://raw.github.com/mash2k3/demon88/master/Demon88_Directory.xml',235,art+'/demon88.png')
         elif index==37:
             main.addDirHome('ONE242415','https://raw.github.com/mash2k3/One242415/master/One242415_Directory.xml',235,art+'/one252515.png')
-        elif index==30:
-            main.addDirHome('My XML Channels','nills',238,art+'/xml.png')
+       #elif index==30:
+           #main.addDirHome('My XML Channels','nills',238,art+'/xml.png')
         elif index==31:
             main.addDirHome("K1M05's Streams",'https://raw.github.com/mash2k3/MashUpK1m05/master/k1m05_mashupDirectory.xml',181,art+'/k1m05.png')
         elif index==32:
@@ -122,13 +120,16 @@ def MAIN():
         elif index==36:
             if selfAddon.getSetting("stracker") == '0':
                 main.addDirHome("SideReel Show Tracker",'Mash Up',397,art+'/sidereel.png')
-            else:
+            elif selfAddon.getSetting("stracker") == '1':
                 main.addDirHome("Trakt Show Tracker",'Mash Up',429,art+'/trakt.png')
-#    main.addPlayc('Need Help?','http://www.movie25.com/',100,art+'/help.png','','','','','')
-#    main.addPlayc('Upload Log','http://www.movie25.so/',156,art+'/loguploader.png','','','','','')
-#    main.addPlayc('Click Me!!!','https://raw.github.com/mash2k3/MashupArtwork/master/skins/vector/donation.png',244,art+'/paypalmash2.png','','','','','')
-#    main.addSpecial('@mashupxbmc','','',art+'/twittermash.png')
-#    main.addPlayc('MashUp Settings','http://www.movie25.so/',1999,art+'/MashSettings.png','','','','','')
+            else:
+                main.addDirHome("SideReel Show Tracker",'Mash Up',397,art+'/sidereel.png')
+                main.addDirHome("Trakt Show Tracker",'Mash Up',429,art+'/trakt.png')
+   #main.addPlayc('Need Help?','http://www.movie25.com/',100,art+'/help.png','','','','','')
+   #main.addPlayc('Upload Log','http://www.movie25.so/',156,art+'/loguploader.png','','','','','')
+   #main.addPlayc('Click Me!!!','https://raw.github.com/mash2k3/MashupArtwork/master/skins/vector/donation.png',244,art+'/paypalmash2.png','','','','','')
+   #main.addSpecial('@mashupxbmc','','',art+'/twittermash.png')
+    main.addPlayc('MashUp Settings','http://www.movie25.so/',1999,art+'/MashSettings.png','','','','','')
               
 def Announcements():
     #Announcement Notifier from xml file
@@ -191,7 +192,7 @@ def Announcements():
                     os.remove(notified)
         else: print 'No Messages'
     else: print 'Github Link Down'
-
+	
 def CheckForAutoUpdate(force = False):
     GitHubRepo    = 'AutoUpdate'
     GitHubUser    = 'ykhehra1'
@@ -346,7 +347,10 @@ def TV():
     main.ClearDir(TempPath)
     if selfAddon.getSetting("stracker") == '0':
         main.addDir("SideReel Show Tracker",'Mash Up',397,art+'/sidereel.png')
+    elif selfAddon.getSetting("stracker") == '1':
+        main.addDir("Trakt Show Tracker",'Mash Up',429,art+'/trakt.png')
     else:
+        main.addDir("SideReel Show Tracker",'Mash Up',397,art+'/sidereel.png')
         main.addDir("Trakt Show Tracker",'Mash Up',429,art+'/trakt.png')
     main.addDir('Latest Episodes (Newmyvideolinks) True HD[COLOR red] DC[/COLOR]','TV',34,art+'/tvb.png')
     main.addDir('Latest Episodes (Rlsmix)[COLOR red](Debrid Only)[/COLOR] True HD[COLOR red] DC[/COLOR]','TV',61,art+'/tvb.png')
@@ -394,6 +398,7 @@ def TVAll():
     main.addDir('Noobroom [COLOR red]DC[/COLOR]','TV',296,art+'/noobroom.png')
     main.addDir('MBox [COLOR red]DC[/COLOR]','TV',276,art+'/mbox.png')
     main.addDir('Yify','yify',421,art+'/yify.png')
+    #main.addDir('Shush','TV',451,art+'/shush.png')
     main.addDir('SominalTvFilms','TV',619,art+'/sominal.png')
     main.addDir('Dramania','TV',268,art+'/dramania.png')
     main.addDir('SokroStream','french',324,art+'/sokrostream.png')
@@ -437,11 +442,10 @@ def HD():
     main.addDir('Latest HD Movies (Sceper)[COLOR red](Debrid Only)[/COLOR] True HD','http://sceper.ws/category/movies/movies-bluray-rip',541,art+'/hd2.png')
     main.addDir('Latest HD Movies (SceneSource)[COLOR red](Debrid Only)[/COLOR] True HD','http://www.scenesource.me/films/bluray/',389,art+'/hd2.png')
     main.addDir('Latest True 1080p Movies (FilesTube)[COLOR red](Debrid Only)[/COLOR]','HD',405,art+'/hd2.png')
-    main.addDir('Latest True 1080p Movies (DL4Free)[COLOR red](Debrid Only)[/COLOR]','HD',407,art+'/hd2.png')
+    main.addDir('Latest True 1080p Movies (Rls1Click)[COLOR red](Debrid Only)[/COLOR]','HD',407,art+'/hd2.png')
     main.addDir('Latest Movies (Oneclickwatch)','http://oneclickwatch.org/category/movies/',25,art+'/hd2.png')
     main.addDir('HackerMil HD Movies','https://raw.github.com/HackerMil/HackerMilsMovieStash/master/Movies/HD.xml',236,art+'/hd2.png')
     main.addDir('TNPB HD Movies','https://raw.github.com/mash2k3/MashUpTNPB/master/720p%20Movies.xml',236,art+'/hd2.png')
-    main.addDir('MorePower HD Movies','https://raw.github.com/mash2k3/MashUpMorePower/master/Full1080P.xml',236,art+'/hd2.png')
     main.addDir('Staael1982 HD Movies','https://raw.github.com/mash2k3/Staael1982/master/veehdCollection.xml',236,art+'/hd2.png')
     main.addDir('Demon88 HD Movies','https://raw.github.com/mash2k3/demon88/master/1080pMovies%20.xml',236,art+'/hd2.png')
     main.GA("None","HD")
@@ -462,7 +466,7 @@ def INT():
 
 def INTCAT(murl):
     if 'italian'in murl:
-        main.addDir('Italian Content Only','https://raw2.github.com/mash2k3/One242415/master/Foriegn/italiancontent.xml',236,art+'/intl.png')
+        main.addDir('Cinema Italiano','https://raw2.github.com/mash2k3/One242415/master/CinemaItaliano/cinemaitaliano_directory.xml',236,art+'/intl.png')
         main.addDir('Italian Series','https://raw2.github.com/mash2k3/One242415/master/Foriegn/italianseries.xml',236,art+'/intl.png')
         main.addDir('Live Italian TV','https://raw2.github.com/mash2k3/One242415/master/Foriegn/italianLiveTV.xml',236,art+'/intl.png')
     if 'russian' in murl:
@@ -487,10 +491,12 @@ def INTCAT(murl):
         main.addDir('Latest French Dubbed & Subtitled Movies (DPStreaming)','http://www.dps.com',311,art+'/intl.png')
         main.addDir('Latest French Dubbed & Subtitled Movies (SokroStream)','http://www.dps.com',324,art+'/intl.png')
         main.addDir('Latest French Dubbed & Subtitled Movies (Frenchstream)','http://www.dps.com',367,art+'/intl.png')
+        main.addDir('Latest French (FullStream)','http://www.dps.com',786,art+'/intl.png')
+        main.addDir('Latest French (FullStream 2)','http://www.dps.com',794,art+'/intl.png')
         main.addDir('Latest French Documentaire (Video Documentaire)','http://www.dps.com',331,art+'/intl.png')
     if 'kor' in murl:
         main.addDir('Latest Korean/Jappenese/Chinese Movies&Dramas (Dramania)','http://www.cinevip.org/',268,art+'/intl.png')
-        main.addDir('Latest Korean/Jappenese/Chinese Movies&Dramas (Catiii.tv)','http://www.cinevip.org/',434,art+'/intl.png')
+        #main.addDir('Latest Korean/Jappenese/Chinese Movies&Dramas (Catiii.tv)','http://www.cinevip.org/',434,art+'/intl.png')
     if 'danish' in murl:
         main.addDir('Staael1982 Danish Movies','https://raw.github.com/mash2k3/Staael1982/master/danish%20movies.xml',236,art+'/intl.png')
 
@@ -499,6 +505,7 @@ def SPORTS():
     main.addDir('TSN','http:/tsn.com',95,art+'/tsn.png')
     main.addDir('SkySports.com','www1.skysports.com',172,art+'/skysports.png')
     main.addDir('Fox Soccer  [COLOR red](US ONLY)[/COLOR]','http:/tsn.com',124,art+'/foxsoc.png')
+    main.addDir('MLB','mlb',447,art+'/mlb.png')
     main.addDir('All MMA','mma',537,art+'/mma.png')
     main.addDir('Outdoor Channel','http://outdoorchannel.com/',50,art+'/OC.png')
     main.addDir('My Outdoor TV','http://outdoorchannel.com/',360,art+'/myoutdoortv.png')
@@ -550,8 +557,7 @@ def KIDZone(murl):
     main.addDir('WB Kids','wbk',77,art+'/wb.png')
     main.addDir('Youtube Kids','wbk',84,art+'/youkids.png')
     main.addDir('TNPB KidsZone','https://raw.github.com/mash2k3/MashUpTNPB/master/kidszone.xml',236,art+'/kidzone2.png')
-    main.addDir('MorePower Family and Kids shows and movies','https://raw.github.com/mash2k3/MashUpMorePower/master/KidsShowsMovies.xml',236,art+'/kidzone2.png')
-    main.addDir('Staael1982 Animated Movies','https://raw.github.com/mash2k3/Staael1982/master/animated_movies.xml',236,art+'/kidzone2.png')
+    main.addDir('Staael1982 Animated Movies','https://github.com/Coolstreams/bobbyelvis/raw/master/kids%20%26%20animation.xml',236,art+'/kidzone2.png')
             
     main.GA("None","KidZone")
     main.VIEWSB()
@@ -566,7 +572,7 @@ def LiveStreams():
     threading.Thread(target=showLiveAnnouncements).start()
     TVGuide = xbmc.translatePath('special://home/addons/script.tvguidedixie')
     if  os.path.exists(TVGuide):
-        main.addSpecial('TV Guide Dixie','guide',1500,art+'/tvguide.png')
+        main.addSpecial('OnTapp.tv','guide',1500,art+'/ontapp.png')
     main.addDir('Livestation News','http://mobile.livestation.com/',116,art+'/livestation.png')
     main.addDir('iLive Streams','ilive',119,art+'/ilive.png')
     main.addDir('Castalba Streams','castalgba',122,art+'/castalba.png')
@@ -574,8 +580,7 @@ def LiveStreams():
     main.addDir('By Country','navi',143,art+'/countrysec.png')
     main.addDir('Arabic Streams','navi',231,art+'/arabicstream.png')
     main.addDir('NHL [COLOR red]GOTHAM ONLY[/COLOR]','navi',394,art+'/nhl.png')
-    main.addDir('Kiwi','kiwi',439,art+'/kiwi.png')
-    main.addDir('SportsPack','kiwi',443,art+'/spo.png')
+    #main.addDir('Kiwi','kiwi',439,art+'/kiwi.png')
     link=getListFile('https://raw.github.com/mash2k3/MashUpNotifications/master/LiveDirectory(mash2k3Only).xml',os.path.join(CachePath,'LiveStreams'))
     link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','').replace('type=playlistname=Sorted by user-assigned order','').replace('name=Sorted [COLOR=FF00FF00]by user-assigned order[/COLOR]','').replace('name=Live Tv Channels Twothumb','')
     match=re.compile('<name>(.+?)</name><link>(.+?)</link><thumbnail>(.+?)</thumbnail><mode>(.+?)</mode>').findall(link)
@@ -585,6 +590,7 @@ def LiveStreams():
         else:
             thumbs=art+'/'+thumb+'.png'
         main.addDir(name,url,int(mode),thumbs)
+    main.addDir('USA Live','na',457,art+'/usalive.png')
     main.addDir('SportsAccess','na',409,art+'/sportsaccess.png')
     if selfAddon.getSetting("customchannel") == "true":
         main.addDir('My XML Channels','nills',238,art+'/xml.png')
@@ -862,29 +868,8 @@ def downloadFileWithDialog(url,dest):
 def UploadLog():
     from resources.fixes import addon
     addon.LogUploader()
-def GetRepo():
-    repopath = xbmc.translatePath(os.path.join('special://home/addons', 'repository.bdtv'))
-    try:
-        repo = os.path.join(repopath, 'addon.xml')
-        repofile = open(repo, 'r').read()
-        repov=re.compile('version="([^"]+?)" provider-name').findall(repofile)
-        if repov:
-            RepoVer = repov[0]
-                
-    except:
-        RepoVer='Repo Not Intalled'
-    print "Repo Ver: "+RepoVer
-    if RepoVer!='1.0.6':
-        try:
-            url = 'https://dl.dropboxusercontent.com/u/90916090/BDTV-Repo/repos/repository.bdtv/repository.bdtv-1.0.6.zip'
-            path = xbmc.translatePath(os.path.join('special://home/addons','packages'))
-            lib=os.path.join(path, 'repository.bdtv-1.0.6.zip')
-            if main.downloadFile(url,lib,silent = True):
-                print lib
-                addonfolder = xbmc.translatePath(os.path.join('special://home/addons',''))
-            xbmc.executebuiltin("XBMC.Extract(%s,%s)"%(lib,addonfolder))
-        except: pass
 
+	
 repopath = xbmc.translatePath(os.path.join('special://home/addons', 'repository.divingmule.addons'))
 try: 
     if not os.path.exists(repopath):
@@ -1288,9 +1273,10 @@ if mode and url:
         main.setFile(DailyFilePath,'',True)
 
 if mode==None or url==None or len(url)<1:
+    threading.Thread(target=Announcements).start()
     if ENV is 'Prod':
         threading.Thread(target=CheckForAutoUpdate).start()
-        threading.Thread(target=GetRepo).start()
+        
         
     else:
         threading.Thread(target=CheckForAutoUpdateDev).start()
@@ -1298,7 +1284,7 @@ if mode==None or url==None or len(url)<1:
     threading.Thread(target=cacheTrakt).start()
     threading.Thread(target=Notify).start()
     MAIN()
-    threading.Thread(target=Announcements).start()
+    
     main.VIEWSB()        
    
 elif mode==1:
@@ -3158,14 +3144,14 @@ elif mode==406:
     filestube.LINKSP3(name,url)
     
 elif mode==407:
-    from resources.libs.movies_tv import dl4free
+    from resources.libs.movies_tv import rls1click
     print ""+url
-    dl4free.LISTSP3(url)
+    rls1click.LISTSP3(url)
 
 elif mode==408:
-    from resources.libs.movies_tv import dl4free
+    from resources.libs.movies_tv import rls1click
     print ""+url
-    dl4free.LINKSP3(name,url)
+    rls1click.LINKSP3(name,url)
 
 elif mode==409:
     from resources.libs.live import skyaccess
@@ -3316,7 +3302,64 @@ elif mode==445:
 elif mode==446:
     from resources.libs.live import onefm
     print ""+url
-    onefm.MAIN() 
+    onefm.MAIN()
+
+
+elif mode==447:
+    from resources.libs.sports import mlb
+    print ""+url
+    mlb.MAIN()
+
+elif mode==448:
+    from resources.libs.sports import mlb
+    print ""+url
+    mlb.LIST(url)
+
+elif mode==449:
+    from resources.libs.sports import mlb
+    print ""+url
+    mlb.LINK(name,url,iconimage)
+
+elif mode==450:
+    from resources.libs.sports import mlb
+    print ""+url
+    mlb.LIST2(url)
+
+elif mode==451:
+    from resources.libs.plugins import shush
+    print ""+url
+    shush.MAIN(url)
+
+elif mode==452:
+    from resources.libs.plugins import shush
+    print ""+url
+    shush.LIST(name,url,iconimage)
+
+elif mode==453:
+    from resources.libs.plugins import shush
+    print ""+url
+    shush.LINK(name,url,iconimage)
+
+elif mode==454:
+    LIBRTMP(name,url,plot)
+
+elif mode==455:
+    DLLIBRTMP(name,url,plot)
+
+elif mode==456:
+    from resources.libs.movies_tv import sidereel
+    print ""+url
+    sidereel.EntCreds(url)
+
+elif mode==457:
+    from resources.libs.live import ibrod
+    print ""+url
+    ibrod.USALIST(url)
+
+elif mode==458:
+    from resources.libs.live import ibrod
+    print ""+url
+    ibrod.USALINK(name,url,iconimage)
 ######################################################################################################
 elif mode==500:
     TVAll()        
@@ -3421,7 +3464,10 @@ elif mode==550:
     from resources.libs.movies_tv import newmyvideolinks
     newmyvideolinks.SearchhistoryEtowns(url)
 
-        
+if mode==3000:
+    print""
+
+    
 elif mode==567:
     from resources.libs.plugins import fma
     print ""+url
@@ -3869,6 +3915,70 @@ elif mode == 784:
 elif mode == 785:
     print ""+url
     FIXDOWN(name,url,location,path)
+elif mode==786:
+    from resources.libs.plugins import fullstream
+    print ""+url
+    fullstream.MAINFULLS()
+elif mode==787:
+    from resources.libs.plugins import fullstream
+    print ""+url
+    fullstream.LISTFULLS(url)
+elif mode==788:
+    from resources.libs.plugins import fullstream
+    print ""+url
+    fullstream.LINKLIST(name,url)
+elif mode==789:
+    from resources.libs.plugins import fullstream
+    print ""+url
+    fullstream.LINKFULLS(name,url)
+elif mode==790:
+    from resources.libs.plugins import fullstream
+    print ""+url
+    fullstream.LISTEPISODE(name,url)
+elif mode==791:
+    from resources.libs.plugins import fullstream
+    print ""+url
+    fullstream.LINKLIST2(name,url)
+elif mode==792:
+    from resources.libs.plugins import fullstream
+    print ""+url
+    fullstream.SEARCHFULLS()
+elif mode==793:
+    from resources.libs.plugins import fullstream
+    print ""+url
+    fullstream.GENRESFULLS()
+elif mode==794:
+    from resources.libs.plugins import fullstream2
+    print ""+url
+    fullstream2.MAINFULLS()
+elif mode==795:
+    from resources.libs.plugins import fullstream2
+    print ""+url
+    fullstream2.LISTFULLS(url)
+elif mode==796:
+    from resources.libs.plugins import fullstream2
+    print ""+url
+    fullstream2.LINKLIST(name,url)
+elif mode==797:
+    from resources.libs.plugins import fullstream2
+    print ""+url
+    fullstream2.LINKFULLS(name,url)
+elif mode==798:
+    from resources.libs.plugins import fullstream2
+    print ""+url
+    fullstream2.LISTEPISODE(name,url)
+elif mode==799:
+    from resources.libs.plugins import fullstream2
+    print ""+url
+    fullstream2.SEARCHFULLS()
+elif mode==800:
+    from resources.libs.plugins import fullstream2
+    print ""+url
+    fullstream2.GENRESFULLS()
+elif mode==801:
+    from resources.libs.plugins import fullstream2
+    print ""+url
+    fullstream2.QLTFULLS()
         
 elif mode == 1000:
     from resources.libs.plugins import tvrelease

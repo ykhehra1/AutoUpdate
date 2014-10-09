@@ -93,10 +93,17 @@ def MAIN():
             main.addDirHome('Kids Zone','http://www.movie25.so/',76,art+'/kidzone2.png')
         elif index==23:
             main.addDirHome('Documentaries','http://www.movie25.so/',85,art+'/docsec1.png')
+<<<<<<< HEAD
 #		elif index==24:
 #			main.addDirHome("Mash Up How To's",'how',16,art+'/howto.png')
 #		elif index==25:
 #			main.addDirHome('Fixes','http://www.movie25.so/',784,art+'/fixes.png')
+=======
+	#elif index==24:
+	    #main.addDirHome("Mash Up How To's",'how',16,art+'/howto.png')
+	#elif index==25:
+	    #main.addDirHome('Fixes','http://www.movie25.so/',784,art+'/fixes.png')
+>>>>>>> origin/master
         elif index==26:
             main.addDirHome('HackerMils Stash','https://raw.github.com/HackerMil/HackerMilsMovieStash/master/Directory/HackerMil_Directory.xml',235,art+'/hackermil.png')
         elif index==27:
@@ -107,8 +114,13 @@ def MAIN():
             main.addDirHome('Demon88 Movies','https://raw.github.com/mash2k3/demon88/master/Demon88_Directory.xml',235,art+'/demon88.png')
         elif index==37:
             main.addDirHome('ONE242415','https://raw.github.com/mash2k3/One242415/master/One242415_Directory.xml',235,art+'/one252515.png')
+<<<<<<< HEAD
 #		elif index==30:
 #			main.addDirHome('My XML Channels','nills',238,art+'/xml.png')
+=======
+	#elif index==30:
+	    #main.addDirHome('My XML Channels','nills',238,art+'/xml.png')
+>>>>>>> origin/master
         elif index==31:
             main.addDirHome("K1M05's Streams",'https://raw.github.com/mash2k3/MashUpK1m05/master/k1m05_mashupDirectory.xml',181,art+'/k1m05.png')
         elif index==32:
@@ -125,10 +137,17 @@ def MAIN():
             else:
                 main.addDirHome("SideReel Show Tracker",'Mash Up',397,art+'/sidereel.png')
                 main.addDirHome("Trakt Show Tracker",'Mash Up',429,art+'/trakt.png')
+<<<<<<< HEAD
 #	main.addPlayc('Need Help?','http://www.movie25.com/',100,art+'/help.png','','','','','')
 #	main.addPlayc('Upload Log','http://www.movie25.so/',156,art+'/loguploader.png','','','','','')
 #	main.addPlayc('Click Me!!!','https://raw.github.com/mash2k3/MashupArtwork/master/skins/vector/donation.png',244,art+'/paypalmash2.png','','','','','')
 #	main.addSpecial('@mashupxbmc','','',art+'/twittermash.png')
+=======
+	#main.addPlayc('Need Help?','http://www.movie25.com/',100,art+'/help.png','','','','','')
+	#main.addPlayc('Upload Log','http://www.movie25.so/',156,art+'/loguploader.png','','','','','')
+	#main.addPlayc('Click Me!!!','https://raw.github.com/mash2k3/MashupArtwork/master/skins/vector/donation.png',244,art+'/paypalmash2.png','','','','','')
+	#main.addSpecial('@mashupxbmc','','',art+'/twittermash.png')
+>>>>>>> origin/master
 	main.addPlayc('MashUp Settings','http://www.movie25.so/',1999,art+'/MashSettings.png','','','','','')
               
 def Announcements():

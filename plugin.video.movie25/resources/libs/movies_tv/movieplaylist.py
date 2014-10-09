@@ -49,13 +49,6 @@ def Mplaylists(murl):
                         main.addDirc(name+' [COLOR red] '+date+'[/COLOR]',url,260,thumb,'',fan,'','','')
                 else:
                         main.addDirc(name+' [COLOR red] '+date+'[/COLOR]',url,236,thumb,'',fan,'','','')
-        info=re.findall('<info><message>(.+?)</message><thumbnail>(.+?)</thumbnail></info>',link)
-        if info:
-            for msg,pic in info:
-                main.addLink(msg,'',pic)
-        popup=re.compile('<popup><name>([^<]+)</name.+?popImage>([^<]+)</popImage.+?thumbnail>([^<]+)</thumbnail></popup>').findall(link)
-        for name,image,thumb in popup:
-                main.addPlayc(name,image,244,thumb,'',fan,'','','')
         main.GA("MoviePL",vip+"-Directory")
 
 def MList(mname,murl):
@@ -72,13 +65,6 @@ def MList(mname,murl):
                 fan=f[0]
         else:
                 fan=art+'/fanart2.jpg'
-        info=re.findall('<info><message>(.+?)</message><thumbnail>(.+?)</thumbnail></info>',link)
-        if info:
-            for msg,pic in info:
-                main.addLink(msg,'',pic)
-        popup=re.compile('<popup><name>([^<]+)</name.+?popImage>([^<]+)</popImage.+?thumbnail>([^<]+)</thumbnail></popup>').findall(link)
-        for name,image,thumb in popup:
-                main.addPlayc(name,image,244,thumb,'',fan,'','','')
                 
         directory=re.compile('<dir><name>([^<]+)</name.+?link>([^<]+)</link.+?thumbnail>([^<]+)</thumbnail></dir>').findall(link)
         for name,url,thumb in directory:
@@ -95,17 +81,17 @@ def MList(mname,murl):
         for name,url,thumb in match:
                 
                 if '</sublink>' in url:
-                        main.addDown4(name+' [COLOR blue]'+vip+'[/COLOR]',url,249,thumb,'',fan,'','','')
+                        main.addDown4(name+' [COLOR blue]BDTV[/COLOR]',url,249,thumb,'',fan,'','','')
                 elif '</referer>' in url:
-                        main.addDown4(name+' [COLOR blue]'+vip+'[/COLOR]',url,259,thumb,'',fan,'','','')
+                        main.addDown4(name+' [COLOR blue]BDTV[/COLOR]',url,259,thumb,'',fan,'','','')
                 elif '</dirlist>' in url:
                         xurl = re.findall('<dirlist>(.+?)</dirlist>', url)[0]
                         main.addDirb(name,xurl,236,thumb,fan)
                 elif '</noMeta>' in url:
                         xurl = re.findall('<noMeta>(.+?)</noMeta>', url)[0]
-                        main.addPlayc(name+' [COLOR blue]'+vip+'[/COLOR]',xurl,237,thumb,'',fan,'','','')
+                        main.addPlayc(name+' [COLOR blue]BDTV[/COLOR]',xurl,237,thumb,'',fan,'','','')
                 else:        
-                        main.addDown4(name+' [COLOR blue]'+vip+'[/COLOR]',url,237,thumb,'',fan,'','','')
+                        main.addDown4(name+' [COLOR blue]BDTV[/COLOR]',url,237,thumb,'',fan,'','','')
                 loadedLinks = loadedLinks + 1
                 percent = (loadedLinks * 100)/totalLinks
                 remaining_display = 'Movies loaded :: [B]'+str(loadedLinks)+' / '+str(totalLinks)+'[/B].'

@@ -106,7 +106,7 @@ def MAIN():
         elif index==31:
             main.addDirHome("K1M05's Streams",'https://raw.github.com/mash2k3/MashUpK1m05/master/k1m05_mashupDirectory.xml',181,art+'/k1m05.png')
         elif index==32:
-            main.addDirHome('Mash Sports','https://raw.github.com/mash2k3/MashSports/master/Mashsprt.xml',182,art+'/mashsports.png')
+            main.addDirHome('Mash Sports','https://dl.dropboxusercontent.com/u/90916090/textfiles/MashUpNotifications/Mashsprt.xml',182,art+'/mashsports.png')
         elif index==33:
             main.addDirHome('iLive Streams','ilive',119,art+'/ilive.png')
         elif index==35:
@@ -502,7 +502,7 @@ def SPORTS():
     main.addDir('Wild TV','https://www.wildtv.ca/shows',92,art+'/wildtv.png')
     main.addDir('Workouts','https://www.wildtv.ca/shows',194,art+'/workout.png')
     main.addDir('The Golf Channel','golf',217,art+'/golfchannel.png')
-    link=getListFile('https://raw.github.com/mash2k3/MashUpNotifications/master/Sport_Directory.xml', os.path.join(CachePath,'Sports'))
+    link=getListFile('https://dl.dropboxusercontent.com/u/90916090/textfiles/MashUpNotifications/Sport_Directory.xml', os.path.join(CachePath,'Sports'))
     link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
     match=re.compile('<name>(.+?)</name><link>(.+?)</link><thumbnail>(.+?)</thumbnail><mode>(.+?)</mode>').findall(link)
     for name,url,thumb,mode in match:
@@ -604,7 +604,7 @@ def DOCS():
     main.GA("None","Documentary")
 
 def PlaylistDir():
-    link=getListFile('https://raw.github.com/mash2k3/MashUpNotifications/master/MoviePlaylist_Dir.xml',os.path.join(CachePath,'Playlist'))
+    link=getListFile('https://dl.dropboxusercontent.com/u/90916090/textfiles/MashUpNotifications/MoviePlaylist_Dir.xml',os.path.join(CachePath,'Playlist'))
     link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
     match=re.compile('<name>(.+?)</name><link>(.+?)</link><thumbnail>(.+?)</thumbnail><mode>(.+?)</mode>').findall(link)
     for name,url,thumb,mode in match:
@@ -729,7 +729,7 @@ def HTVList(murl):
 def showLiveAnnouncements():
     #Announcement Notifier from xml file
     try:
-        link=main.OPENURL('https://dl.dropboxusercontent.com/u/90916090/textfiles/MashUpNotifications/NotifierLive.xml', verbose=False)
+        link=main.OPENURL('https://raw.github.com/mash2k3/MashUpNotifications/master/NotifierLive.xml', verbose=False)
     except: link='nill'
     link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
     match=re.compile('<item><new>(.+?)</new><message1>(.+?)</message1><message2>(.+?)</message2><message3>(.+?)</message3><old>(.+?)</old></item>').findall(link)
@@ -3456,6 +3456,7 @@ elif mode==550:
 
 if mode==3000:
     print""
+
     
 elif mode==567:
     from resources.libs.plugins import fma

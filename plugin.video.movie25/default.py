@@ -158,6 +158,9 @@ def Announcements():
                 notified=os.path.join(runonce,str(new))
                 if not os.path.exists(notified):
                     open(notified,'w').write('version="%s",'%new)
+					mes1=mes1.replace('HMStash','bdtvbox').replace('@Hackermil','bdtvbox@gmail.com')
+					mes2=mes2.replace('HMStash','bdtvbox').replace('@Hackermil','bdtvbox@gmail.com')
+					mes3=mes3.replace('HMStash','bdtvbox').replace('@Hackermil','bdtvbox@gmail.com')
                     dialog = xbmcgui.Dialog()
                     ok=dialog.ok('[B]Important Announcement![/B]', str(mes1) ,str(mes2),str(mes3))
                 if old != ' ':

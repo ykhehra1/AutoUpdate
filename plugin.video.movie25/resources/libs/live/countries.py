@@ -15,7 +15,7 @@ art = main.art
 def COUNTRIES():
         main.GA("Live","Countries")
         link=main.OPENURL('http://alaska.watchkodi.com/maindir/main2.xml')
-        link=link.replace('\r','').replace('\n','').replace('HackerMil','bdtvbox').replace('\t','').replace('&nbsp;','').replace('type=playlistname=Sorted by user-assigned order','').replace('name=Sorted [COLOR=FF00FF00]by user-assigned order[/COLOR]','').replace('name=Live Tv Channels Twothumb','')
+        link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','').replace('type=playlistname=Sorted by user-assigned order','').replace('name=Sorted [COLOR=FF00FF00]by user-assigned order[/COLOR]','').replace('name=Live Tv Channels Twothumb','')
         match=re.compile('<name>(.+?)</name><link>(.+?)</link><thumbnail>(.+?)</thumbnail>').findall(link)
         for name,url,thumb in sorted(match):
             main.addDir(name,url,144,thumb)
@@ -23,7 +23,7 @@ def COUNTRIES():
 def COUNTRIESList(mname,murl):
         main.GA("Countries-"+mname,"Watched")
         link=main.OPENURL(murl)
-        link=link.replace('\r','').replace('\n','').replace('HackerMil','bdtvbox').replace('\t','').replace('&nbsp;','').replace('type=playlistname=Sorted by user-assigned order','').replace('name=Sorted [COLOR=FF00FF00]by user-assigned order[/COLOR]','').replace('name=Live Tv Channels Twothumb','')
+        link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','').replace('type=playlistname=Sorted by user-assigned order','').replace('name=Sorted [COLOR=FF00FF00]by user-assigned order[/COLOR]','').replace('name=Live Tv Channels Twothumb','')
         match=re.compile('<title>([^<]+)</title.+?link>(.+?)</link.+?thumbnail>([^<]+)</thumbnail>',re.DOTALL).findall(link)
         for name,url,thumb in sorted(match):
             main.addPlayL(name,url,204,thumb,'','','','','',secName='By Country',secIcon=art+'/countrysec.png')

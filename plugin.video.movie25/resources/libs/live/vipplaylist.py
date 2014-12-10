@@ -15,7 +15,7 @@ art = main.art
 
 def VIPplaylists(murl):
         link=main.OPENURL(murl)
-        link=link.replace('\r','').replace('HackerMil','bdtvbox').replace('\n','').replace('\t','').replace('&nbsp;','')
+        link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
         r=re.findall('<bdposter>(.+?)</bdposter>',link)
         if r:
                 vip=r[0]
@@ -66,7 +66,7 @@ def VIPplaylists(murl):
 
 def VIPList(mname,murl):
         link=main.OPENURL(murl)
-        link=link.replace('\r','').replace('HackerMil','bdtvbox').replace('\n','').replace('\t','').replace('&nbsp;','')
+        link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
         r=re.findall('<bdposter>(.+?)</bdposter>',link)
         if r:
                 vip=r[0]

@@ -579,7 +579,7 @@ def subLink(mname,suburl):
         for url in match:
                 match6=re.compile('http://(.+?)/.+?').findall(url)
                 for url2 in match6:
-                        host = url2.replace('www.','').replace('HackerMil','bdtvbox').replace('.in','').replace('.net','').replace('.com','').replace('.to','').replace('.org','').replace('.ch','')
+                        host = url2.replace('www.','').replace('.in','').replace('.net','').replace('.com','').replace('.to','').replace('.org','').replace('.ch','')
                         if re.findall('\d+.\d+.\d+.\d+',host):
                             host='Static'
                         main.addPlayMs(mname+' [COLOR blue]'+host.upper()+'[/COLOR]',url,240,art+'/hosts/'+host.lower()+'.png','',art+'/hosts/'+host.lower()+'.png','','','')

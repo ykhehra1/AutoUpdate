@@ -19,7 +19,7 @@ def MAINNHL(murl):
     link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','').replace('  ','')
     main.addDir('[COLOR red]Archived Games[/COLOR]','Archived',394,art+'/nhl.png')
     if 'Archived' not in murl:
-        main.addLink("[COLOR red]Live Games Windows Only, Requires some modifications to get working visit forum.[/COLOR]",'','')
+        main.addLink("[COLOR red]Live Games down right now, working on it. No ETA.[/COLOR]",'','')
     match=re.compile('{"id":(.+?),"est":"(.+?)","a":"(.+?)","h":"(.+?)"}',re.DOTALL).findall(link)
     for id,timed,ateam,hteam in match:
         split= re.search('(.+?)\s(\d+:\d+):\d+',timed)

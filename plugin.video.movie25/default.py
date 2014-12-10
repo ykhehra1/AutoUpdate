@@ -137,7 +137,6 @@ def Announcements():
         match=re.compile('<item><new>(.+?)</new><message1>.+?</message1><message2>.+?</message2><message3>.+?</message3><ANNOUNCEMENT>(.+?)</ANNOUNCEMENT><old>(.+?)</old></item>').findall(link)
         if match:
             for new,anounce,old in match: continue
-    		new=new.replace('HMStash','bdtvbox').replace('@Hackermil','bdtvbox@gmail.com')
             if new != ' ':
                 runonce=os.path.join(main.datapath,'RunOnce')
                 notified=os.path.join(runonce,str(new))

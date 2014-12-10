@@ -16,11 +16,11 @@ art = main.art
 def VIPplaylists(murl):
         link=main.OPENURL(murl)
         link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
-        r=re.findall('<poster>(.+?)</poster>',link)
+        r=re.findall('<bdposter>(.+?)</bdposter>',link)
         if r:
                 vip=r[0]
         else:
-                vip='Unknown'
+                vip='BDTV'
         f=re.findall('<fanart>(.+?)</fanart>',link)
         if f:
                 fan=f[0]
@@ -67,11 +67,11 @@ def VIPplaylists(murl):
 def VIPList(mname,murl):
         link=main.OPENURL(murl)
         link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
-        r=re.findall('<poster>(.+?)</poster>',link)
+        r=re.findall('<bdposter>(.+?)</bdposter>',link)
         if r:
                 vip=r[0]
         else:
-                vip='Unknown'
+                vip='BDTV'
         f=re.findall('<fanart>(.+?)</fanart>',link)
         if f:
                 fan=f[0]
@@ -89,7 +89,7 @@ def VIPList(mname,murl):
                 main.addDir(name,url,182,thumb)
         match=re.compile('<title>([^<]+)</title.+?link>(.+?)</link.+?thumbnail>([^<]+)</thumbnail>').findall(link)
         for name,url,thumb in sorted(match):
-            main.addPlayL(name+' [COLOR blue]'+vip+'[/COLOR]',url,183,thumb,'',fan,'','','',secName=vip,secIcon=art+'/'+vip.lower()+'.png')
+            main.addPlayL(name,url,183,thumb,'',fan,'','','',secName=vip,secIcon=art+'/'+vip.lower()+'.png')
         main.GA(vip+"-Playlists",mname)
 
 def VIPLink(mname,murl,thumb):

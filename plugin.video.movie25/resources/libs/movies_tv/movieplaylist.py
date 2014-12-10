@@ -15,11 +15,11 @@ refererTXT = xbmc.translatePath('special://home/addons/plugin.video.movie25/reso
 def Mplaylists(murl):
         link=main.OPENURL(murl)
         link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
-        r=re.findall('<poster>(.+?)</poster>',link)
+        r=re.findall('<bdposter>(.+?)</bdposter>',link)
         if r:
                 vip=r[0]
         else:
-                vip='Unknown'
+                vip='BDTV'
         f=re.findall('<fanart>(.+?)</fanart>',link)
         if f:
                 fan=f[0]
@@ -62,11 +62,11 @@ def MList(mname,murl):
         mname  = mname.split('[C')[0]
         link=main.OPENURL(murl)
         link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
-        r=re.findall('<poster>(.+?)</poster>',link)
+        r=re.findall('<bdposter>(.+?)</bdposter>',link)
         if r:
                 vip=r[0]
         else:
-                vip='Unknown'
+                vip='BDTV'
         f=re.findall('<fanart>(.+?)</fanart>',link)
         if f:
                 fan=f[0]

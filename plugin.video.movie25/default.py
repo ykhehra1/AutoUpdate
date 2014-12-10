@@ -98,15 +98,15 @@ def MAIN():
         elif index==26:
             main.addDirHome('HackerMils Stash','https://raw.github.com/HackerMil/HackerMilsMovieStash/master/Directory/HackerMil_Directory.xml',235,art+'/hackermil.png')
         #elif index==29:
-            #main.addDirHome('Staael 1982','http://tuzla.watchkodi.com/maindir/main.xml',235,art+'/staael2014.png')
+            #main.addDirHome('BDTV 2','http://tuzla.watchkodi.com/maindir/main.xml',235,art+'/staael2014.png')
         #elif index==34:
-            #main.addDirHome('Demon88 Movies','http://cairo.watchkodi.com/maindir/main.xml',235,art+'/demon88.png')
+            #main.addDirHome('BDTV 6','http://cairo.watchkodi.com/maindir/main.xml',235,art+'/demon88.png')
         #elif index==37:
-            #main.addDirHome('ONE242415','http://gibraltar.watchkodi.com/maindir/main.xml',235,art+'/one252515.png')
+            #main.addDirHome('BDTV 3','http://gibraltar.watchkodi.com/maindir/main.xml',235,art+'/one252515.png')
         #elif index==31:
             #main.addDirHome("K1M05's Streams",'https://dl.dropboxusercontent.com/u/138808030/mashxmldir/phstreams.xml',181,art+'/k1m05.png')
         #elif index==32:
-            #main.addDirHome('Mash Sports','https://dl.dropboxusercontent.com/u/90916090/textfiles/MashUpNotifications/Mashsprt.xml',182,art+'/mashsports.png')
+            #main.addDirHome('BDTV Sports','https://dl.dropboxusercontent.com/u/90916090/textfiles/MashUpNotifications/Mashsprt.xml',182,art+'/mashsports.png')
         elif index==33:
             main.addDirHome('iLive Streams','ilive',119,art+'/ilive.png')
         elif index==35:
@@ -528,8 +528,12 @@ def HD():
     main.addDir('Latest True 1080p Movies (Rls1Click)[COLOR red](Debrid Only)[/COLOR]','HD',407,art+'/hd2.png')
     main.addDir('Latest Movies (Oneclickwatch)','http://oneclickwatch.org/category/movies/',25,art+'/hd2.png')
     main.addDir('HackerMil HD Movies','https://raw.github.com/HackerMil/HackerMilsMovieStash/master/Movies/HD.xml',236,art+'/hd2.png')
-    main.addDir('Staael1982 HD Movies','https://raw.github.com/Coolstreams/bobbyelvis/master/veehdCollection.xml',236,art+'/hd2.png')
-    main.addDir('Demon88 HD Movies','https://raw.github.com/dm88/Demon88/master/1080pMovies%20.xml',236,art+'/hd2.png')
+    main.addDir('BDTV4 FHD Movies','http://zenica.watchkodi.com/Movies/1080p%20Movies.xml',236,art+'/hd2.png')
+    main.addDir('BDTV2 FHD Movies','http://tuzla.watchkodi.com/1080p%20movies.xml',236,art+'/hd2.png')
+    main.addDir('BDTV6 FHD Movies','http://cairo.watchkodi.com/1080p.xml',236,art+'/hd2.png')
+    main.addDir('BDTV4 HD Movies','http://zenica.watchkodi.com/Movies/720p%20Movies.xml',236,art+'/hd2.png')
+    main.addDir('BDTV2 HD Movies','http://tuzla.watchkodi.com/veehdCollection.xml',236,art+'/hd2.png')
+    main.addDir('BDTV6 HD Movies','http://cairo.watchkodi.com/720p.xml',236,art+'/hd2.png')
     main.GA("None","HD")
     
 def INT():
@@ -548,9 +552,9 @@ def INT():
 
 def INTCAT(murl):
     if 'italian'in murl:
-        main.addDir('Cinema Italiano','https://raw2.github.com/mash2k3/One242415/master/CinemaItaliano/cinemaitaliano_directory.xml',236,art+'/intl.png')
-        main.addDir('Italian Series','https://raw2.github.com/mash2k3/One242415/master/Foriegn/italianseries.xml',236,art+'/intl.png')
-        main.addDir('Live Italian TV','https://raw2.github.com/mash2k3/One242415/master/Foriegn/italianLiveTV.xml',236,art+'/intl.png')
+        main.addDir('Cinema Italiano','http://gibraltar.watchkodi.com/CinemaItaliano/cinemaitaliano_directory.xml',236,art+'/intl.png')
+        main.addDir('Italian Series','http://gibraltar.watchkodi.com/Foriegn/italianseries.xml',236,art+'/intl.png')
+        main.addDir('Live Italian TV','http://gibraltar.watchkodi.com/Foriegn/italianLiveTV.xml',236,art+'/intl.png')
     if 'russian' in murl:
         main.addDir('Latest Russian Movies (Cinemaxx)','russia',362,art+'/intl.png')
         main.addDir('Russian Videos(MailRu)','http://my.mail.ru/video/top',357,art+'/intl.png')
@@ -565,7 +569,7 @@ def INTCAT(murl):
         main.addDir('Latest Arabic Movies/Series/Shows (3Arabtv)','arabic',351,art+'/intl.png')
     if 'uk' in murl:
         main.addDir('Latest UK and US (Mooviemaniac)','movindub',305,art+'/intl.png')
-        main.addDir('Best of British (TNPB)','https://raw.github.com/mash2k3/MashUpTNPB/master/Best%20of%20British.xml',236,art+'/intl.png')
+        main.addDir('Best of British','http://zenica.watchkodi.com/Directories/BoB%20Directory.xml',236,art+'/intl.png')
     if 'spanish' in murl:
         main.addDir('Latest Spanish Dubbed & Subtitled(ESP) Movies (peliculaspepito)','http://www.peliculaspepito.com',66,art+'/intl.png')
         main.addDir('Latest Spanish Dubbed & Subtitled(ESP) Movies (FXCine)','http://www.fxcine.com',308,art+'/intl.png')
@@ -581,7 +585,7 @@ def INTCAT(murl):
         main.addDir('Latest Korean/Jappenese/Chinese Movies&Dramas (Viki)','http://www.cinevip.org/',478,art+'/intl.png')
         #main.addDir('Latest Korean/Jappenese/Chinese Movies&Dramas (Catiii.tv)','http://www.cinevip.org/',434,art+'/intl.png')
     if 'danish' in murl:
-        main.addDir('Staael1982 Danish Movies','https://raw.github.com/mash2k3/Staael1982/master/danish%20movies.xml',236,art+'/intl.png')
+        main.addDir('Danish Movies','http://tuzla.watchkodi.com/GrandDane/mains.xml',236,art+'/intl.png')
 
 def SPORTS():
     main.addDir('ESPN','http:/espn.com',44,art+'/espn.png')
@@ -640,8 +644,10 @@ def KIDZone(murl):
     main.addDir('National Geographic Kids','ngk',71,art+'/ngk.png')
     main.addDir('WB Kids','wbk',77,art+'/wb.png')
     main.addDir('Youtube Kids','wbk',84,art+'/youkids.png')
-    main.addDir('Staael1982 Animated Movies','https://github.com/Coolstreams/bobbyelvis/raw/master/kids%20%26%20animation.xml',236,art+'/kidzone2.png')
-            
+    main.addDir('KidsZone','http://zenica.watchkodi.com/Genre/kidszone.xml',236,art+'/kidzone2.png')
+    main.addDir('Animated Movies','http://dl.dropbox.com/u/138808030/mashxmldir/kidsAnimation.xml',236,art+'/kidzone2.png')
+    main.addDir('Animated Movies 2','http://tuzla.watchkodi.com/test%20list.xml',236,art+'/kidzone2.png')
+    main.addDir('Animated Movies 3','http://banjaluka.watchkodi.com/Kids.xml',236,art+'/kidzone2.png')
     main.GA("None","KidZone")
     main.VIEWSB()
 
@@ -692,7 +698,7 @@ def DOCS():
     main.addDir('Top Documentary Films','doc2',86,art+'/topdoc.png')
     main.addDir('Video Documentaire (French)','doc2',331,art+'/videodocumentaire.png')
     main.addDir('Documentary Log','doc3',86,art+'/doclog.png')
-    main.addDir('HackerMil Documentaries','https://raw.github.com/HackerMil/HackerMilsMovieStash/master/Misc/7%20DOCUMENTARY.xml',236,art+'/docsec1.png')
+    main.addDir('BDTV Documentaries','https://raw.github.com/HackerMil/HackerMilsMovieStash/master/Misc/7%20DOCUMENTARY.xml',236,art+'/docsec1.png')
     main.addDir('Documentaries (Movie25)','http://www.movie25.so/movies/documentary/',1,art+'/doc.png')
     main.GA("None","Documentary")
 
@@ -1033,6 +1039,8 @@ def phstreams():
     cmd = 'plugin://plugin.video.phstreams/'
     xbmc.executebuiltin('XBMC.Container.Update(%s)' % cmd)
     return ok
+
+
 
 repopath = xbmc.translatePath(os.path.join('special://home/addons', 'repository.divingmule.addons'))
 try: 

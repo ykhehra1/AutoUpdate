@@ -14,7 +14,7 @@ refererTXT = xbmc.translatePath('special://home/addons/plugin.video.movie25/reso
 
 def Mplaylists(murl):
         link=main.OPENURL(murl)
-        link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
+        link=link.replace('\r','').replace('HackerMil','bdtvbox').replace('\n','').replace('\t','').replace('&nbsp;','')
         r=re.findall('<bdposter>(.+?)</bdposter>',link)
         if r:
                 vip=r[0]
@@ -61,7 +61,7 @@ def Mplaylists(murl):
 def MList(mname,murl):
         mname  = mname.split('[C')[0]
         link=main.OPENURL(murl)
-        link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
+        link=link.replace('\r','').replace('HackerMil','bdtvbox').replace('\n','').replace('\t','').replace('&nbsp;','')
         r=re.findall('<bdposter>(.+?)</bdposter>',link)
         if r:
                 vip=r[0]
@@ -133,7 +133,7 @@ def subLink(mname,suburl):
         for url in match:
                 match6=re.compile('http://(.+?)/.+?').findall(url)
                 for url2 in match6:
-                        host = url2.replace('www.','').replace('.in','').replace('.net','').replace('.com','').replace('.to','').replace('.org','').replace('.ch','')
+                        host = url2.replace('www.','').replace('HackerMil','bdtvbox').replace('.in','').replace('.net','').replace('.com','').replace('.to','').replace('.org','').replace('.ch','')
                         if re.findall('\d+.\d+.\d+.\d+',host):
                             host='Static'
                         main.addDown2(mname+' [COLOR blue]'+host.upper()+'[/COLOR]',url,237,art+'/hosts/'+host.lower()+'.png',art+'/hosts/'+host.lower()+'.png')

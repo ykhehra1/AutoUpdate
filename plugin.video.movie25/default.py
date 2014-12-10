@@ -130,7 +130,7 @@ def Announcements():
     try:
         import time
         link=main.OPENURL('http://dl.dropboxusercontent.com/u/90916090/textfiles/MashUpNotifications/Notifier.xml?'+ str(time.time()),verbose=False)
-        link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
+        link=link.replace('\r','').replace('\n','').replace('HackerMil','bdtvbox').replace('\t','').replace('&nbsp;','')
     except: link='nill'
     r = re.findall(r'ANNOUNCEMENTWINDOW ="ON"',link)
     if r:
@@ -456,7 +456,7 @@ def TV():
 def ThreeDsec():
     main.addDir('3D Movies (Newmyvideolinks) True HD[COLOR red] DC[/COLOR]','3D',34,art+'/3d.png')
     link=getListFile('https://dl.dropboxusercontent.com/u/90916090/textfiles/MashUpNotifications/Directories/3D_Directory.xml', os.path.join(CachePath,'ThreeD'))
-    link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
+    link=link.replace('\r','').replace('\n','').replace('HackerMil','bdtvbox').replace('\t','').replace('&nbsp;','')
     match=re.compile('<name>(.+?)</name><link>(.+?)</link><thumbnail>(.+?)</thumbnail><mode>(.+?)</mode>').findall(link)
     for name,url,thumb,mode in match:
         if re.findall('http',thumb):
@@ -601,7 +601,7 @@ def SPORTS():
     main.addDir('The Golf Channel','golf',217,art+'/golfchannel.png')
     main.addDir('HQZone','na',470,art+'/hqzone.png')
     link=getListFile('https://dl.dropboxusercontent.com/u/90916090/textfiles/MashUpNotifications/Sport_Directory.xml', os.path.join(CachePath,'Sports'))
-    link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
+    link=link.replace('\r','').replace('\n','').replace('HackerMil','bdtvbox').replace('\t','').replace('&nbsp;','')
     match=re.compile('<name>(.+?)</name><link>(.+?)</link><thumbnail>(.+?)</thumbnail><mode>(.+?)</mode>').findall(link)
     for name,url,thumb,mode in match:
         if re.findall('http',thumb):
@@ -671,7 +671,7 @@ def LiveStreams():
     main.addDir('NHL','navi',394,art+'/nhl.png')
     #main.addDir('Kiwi','kiwi',439,art+'/kiwi.png')
     link=getListFile('https://dl.dropboxusercontent.com/u/90916090/textfiles/MashUpNotifications/LiveDirectory(mash2k3Only).xml',os.path.join(CachePath,'LiveStreams'))
-    link=link.replace('\r','').replace('\n','').replace('\t','').replace('xbmchub.com','bdtvbox@gmail.com').replace('&nbsp;','').replace('type=playlistname=Sorted by user-assigned order','').replace('name=Sorted [COLOR=FF00FF00]by user-assigned order[/COLOR]','').replace('name=Live Tv Channels Twothumb','')
+    link=link.replace('\r','').replace('\n','').replace('HackerMil','bdtvbox').replace('\t','').replace('xbmchub.com','bdtvbox@gmail.com').replace('&nbsp;','').replace('type=playlistname=Sorted by user-assigned order','').replace('name=Sorted [COLOR=FF00FF00]by user-assigned order[/COLOR]','').replace('name=Live Tv Channels Twothumb','')
     match=re.compile('<name>(.+?)</name><link>(.+?)</link><thumbnail>(.+?)</thumbnail><mode>(.+?)</mode>').findall(link)
     for name,url,thumb,mode in match:
         if re.findall('http',thumb):
@@ -704,7 +704,7 @@ def DOCS():
 
 def PlaylistDir():
     link=getListFile('https://dl.dropboxusercontent.com/u/90916090/textfiles/MashUpNotifications/MoviePlaylist_Dir.xml',os.path.join(CachePath,'Playlist'))
-    link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
+    link=link.replace('\r','').replace('\n','').replace('HackerMil','bdtvbox').replace('\t','').replace('&nbsp;','')
     match=re.compile('<name>(.+?)</name><link>(.+?)</link><thumbnail>(.+?)</thumbnail><mode>(.+?)</mode>').findall(link)
     for name,url,thumb,mode in match:
         if re.findall('http',thumb):
@@ -863,7 +863,7 @@ def FIXES():
         link=main.OPENURL('https://raw.github.com/mash2k3/MashUpFixes/master/Fixes.xml')
     except:
         xbmc.executebuiltin("XBMC.Notification(Sorry!,Repo is Down,5000,"")")
-    link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
+    link=link.replace('\r','').replace('\n','').replace('HackerMil','bdtvbox').replace('\t','').replace('&nbsp;','')
     match=re.compile('<item><name>([^<]+)</name.+?filename>([^<]+)</filename.+?location>([^<]+)</location.+?path>([^<]+)</path.+?thumbnail>([^<]+)</thumbnail></item>').findall(link)
     for name,filename,location,path,thumb in match:
         main.addDirFIX(name,filename,785,art+'/'+thumb+'.png',location,path)
@@ -900,7 +900,7 @@ def delAS():
     
 def HTVList(murl):
     link=main.OPENURL(murl)
-    link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
+    link=link.replace('\r','')..replace('HackerMil','bdtvbox')replace('\n','').replace('\t','').replace('&nbsp;','')
     match=re.compile('<title>([^<]+)</title.+?link>(.+?)</link.+?thumbnail>([^<]+)</thumbnail>').findall(link)
     for name,url,thumb in match:
         main.addPlayc(name,url,259,thumb,'','','','','')
@@ -911,7 +911,7 @@ def showLiveAnnouncements():
     try:
         link=main.OPENURL('https://dl.dropboxusercontent.com/u/90916090/textfiles/MashUpNotifications/NotifierLive.xml', verbose=False)
     except: link='nill'
-    link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
+    link=link.replace('\r','').replace('HackerMil','bdtvbox').replace('\n','').replace('\t','').replace('&nbsp;','')
     match=re.compile('<item><new>(.+?)</new><message1>(.+?)</message1><message2>(.+?)</message2><message3>(.+?)</message3><old>(.+?)</old></item>').findall(link)
     if len(match)>0:
         for new,mes1,mes2,mes3,old in match: continue

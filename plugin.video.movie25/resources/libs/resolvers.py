@@ -273,7 +273,7 @@ def resolve_sockshare(url):
                 logerror('Direct link found: %s' % link.group(1))
                 return 'http://www.sockshare.com%s' % link.group(1)
 
-            r = re.search('value="([0-9a-f]+?)" name="hash"', html)
+            r = re.search('value="([^"]+)" name="hash"', html)
             if r:
                 session_hash = r.group(1)
             else:
@@ -308,7 +308,7 @@ def resolve_sockshare(url):
         except urllib2.URLError, e:
             logerror('Sockshare: got http error %d fetching %s' %
                                     (e.code, url))
-            return unresolvable(code=3, msg=e)
+            #return unresolvable(code=3, msg=e)
         except Exception, e:
             logerror('**** Sockshare Error occured: %s' % e)
             xbmc.executebuiltin('[B][COLOR white]Sockshare[/COLOR][/B]','[COLOR red]%s[/COLOR]' % e, 5000, elogo)
@@ -1002,7 +1002,7 @@ def setCookie(url):
     from random import choice
     cookieExpired = False
     name = "veeHD"
-    userName = ['mashup1', 'mashup3', 'mashup4', 'mashup5', 'mashup6', 'mashup7','mashup11']
+    userName = ['mashup12', 'mashup13', 'mashup14', 'mashup15', 'mashup16']
     ref = 'http://veehd.com'
     submit = 'Login'
     terms = 'on'

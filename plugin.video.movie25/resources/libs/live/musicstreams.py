@@ -16,7 +16,7 @@ wh = watchhistory.WatchHistory('plugin.video.movie25')
 
 def MUSICSTREAMS():
         main.GA("MUSIC-Streams","List")
-        link=main.OPENURL('https://raw.github.com/mash2k3/MashUpStreams/master/playlists/musicstreams2.xml')
+        link=main.OPENURL('https://raw.github.com/crusader88/MashUpStreams/master/playlists/musicstreams2.xml')
         link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
         match=re.compile('<item><titl[^>]+>([^<]+)</title><link>(.+?)</link><thumbnail>(.+?)</thumbnail></item>').findall(link)
         for name,url,thumb in sorted(match):

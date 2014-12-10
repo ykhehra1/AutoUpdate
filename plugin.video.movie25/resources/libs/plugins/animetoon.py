@@ -132,6 +132,7 @@ def LISTHOSTS(name,murl,thumb):
     cheesestream=[]
     videofun=[]
     byzoo=[]
+    yucache=[]
     i=1
     j=1
     v=1
@@ -140,6 +141,7 @@ def LISTHOSTS(name,murl,thumb):
     c=1
     vf=1
     b=1
+    y=1
 
     link=main.OPENURL(murl).replace('\/','/').replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','').replace(' class="selected"','').replace('&rarr;','')
     """parts=re.compile('<li><a href="(http://www.animetoon.tv/.+?/\d-\d+).+?>(Part.+?)</a>').findall(link)
@@ -171,7 +173,7 @@ def LISTHOSTS(name,murl,thumb):
     if byzoo and len(byzoo)>1:
         main.addDown2(name+' [COLOR tan]Byzoo Play All[/COLOR]',str(byzoo),379,thumb,'')  
     for links in collect:
-        if 'videobug' in links:
+        if 'videobug' in links or 'easyvideo' in links:
             main.addDown2(name+' [COLOR blue]VideoBug Part '+str(i)+'[/COLOR]',links,379,thumb,'')
             videobug.append(('Part '+str(i),links))
             i=i+1
@@ -185,14 +187,14 @@ def LISTHOSTS(name,murl,thumb):
     if yourupload and len(yourupload)>1:
         main.addDown2(name+' [COLOR yellow]YourUpload Play All[/COLOR]',str(yourupload),379,thumb,'')
     for links in collect:
-        if 'video44' in links:
+        if 'video44' in links or 'video66' in links:
             main.addDown2(name+' [COLOR red]Video44 Part '+str(v)+'[/COLOR]',links,379,thumb,'')
             video44.append(('Part '+str(v),links))
             v=v+1
     if video44 and len(video44)>1:
         main.addDown2(name+' [COLOR red]Video44 Play All[/COLOR]',str(video44),379,thumb,'')
     for links in collect:
-        if 'play44' in links:
+        if 'play44' in links or 'play66' in links or 'playbb' in links:
             main.addDown2(name+' [COLOR green]Play44 Part '+str(p)+'[/COLOR]',links,379,thumb,'')
             play44.append(('Part '+str(p),links))
             p=p+1
@@ -219,6 +221,15 @@ def LISTHOSTS(name,murl,thumb):
             vf=vf+1
     if videofun and len(videofun)>1:
         main.addDown2(name+' [COLOR maroon]Videofun Play All[/COLOR]',str(videofun),379,thumb,'')
+    for links in collect:
+        if 'yucache' in links:
+            main.addDown2(name+' [COLOR maroon]Yucache Part '+str(y)+'[/COLOR]',links,379,thumb,'')
+            yucache.append(('Part '+str(y),links))
+            y=y+1
+    if yucache:
+        main.addDown2(name+' [COLOR maroon]Yucache Play All[/COLOR]',str(yucache),379,thumb,'')
+
+
 
 
 def getLink(links):
@@ -227,7 +238,7 @@ def getLink(links):
             try:match=re.compile("playlist:.+?url: '(.+?)',",re.DOTALL).findall(link)[0]
             except:match=re.compile('file: "(.+?)",',re.DOTALL).findall(link)[0]
             match=urllib.unquote_plus(match)
-        if 'videobug' in links:
+        if 'videobug' in links or 'easyvideo' in links:
             link=main.OPENURL(links)
             try:match=re.compile("playlist:.+?url: '(.+?)',",re.DOTALL).findall(link)[0]
             except:match=re.compile('file: "(.+?)",',re.DOTALL).findall(link)[0]
@@ -239,12 +250,12 @@ def getLink(links):
                 if len(match)!=0:
                     match=urllib.unquote_plus(match[0])
             except:pass
-        if 'video44' in links:
+        if 'video44' in links or 'video66' in links:
             link=main.OPENURL(links)
             try:match=re.compile("playlist:.+?url: '(.+?)',",re.DOTALL).findall(link)[0]
             except:match=re.compile('file: "(.+?)"',re.DOTALL).findall(link)[0]
             match=urllib.unquote_plus(match)
-        if 'play44' in links:
+        if 'play44' in links or 'play66' in links or 'playbb' in links:
             link=main.OPENURL(links)
             try:match=re.compile("playlist:.+?url: '(.+?)',",re.DOTALL).findall(link)[0]
             except:match=re.compile('file: "(.+?)"',re.DOTALL).findall(link)[0]
@@ -261,6 +272,11 @@ def getLink(links):
         if 'videofun' in links:
             link=main.OPENURL(links)
             try:match=re.compile("""'fit'},.+?{url: "([^<]+)", autoPlay""",re.DOTALL).findall(link)[0]
+            except:pass
+            match=urllib.unquote_plus(match)
+        if 'yucache' in links:
+            link=main.OPENURL(links)
+            try:match=re.compile("""'<source src="([^"]+)" />';""",re.DOTALL).findall(link)[0]
             except:pass
             match=urllib.unquote_plus(match)
         return match

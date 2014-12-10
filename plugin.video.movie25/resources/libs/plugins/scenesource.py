@@ -19,19 +19,19 @@ def MAINSCENE():
 def SECSCENE(murl):
         if murl=='movies':
             main.GA(prettyName,"Movies")
-            main.addDir('All Movies','http://www.scenesource.me/films/',389,art+'/scenesource.png')
-            main.addDir('BDRip','http://www.scenesource.me/films/bdrip/',389,art+'/scenesource.png')
-            main.addDir('BluRay','http://www.scenesource.me/films/bluray/',389,art+'/scenesource.png')
-            main.addDir('DVDRip','http://www.scenesource.me/films/dvdrip/',389,art+'/scenesource.png')
-            main.addDir('DVDSCR','http://www.scenesource.me/films/dvdscr/',389,art+'/scenesource.png')
-            main.addDir('CAM','http://www.scenesource.me/films/cam/',389,art+'/scenesource.png')
-            main.addDir('R5','http://www.scenesource.me/films/r5/',389,art+'/scenesource.png')
+            main.addDir('All Movies','http://www.scenesource.me/category/films/',389,art+'/scenesource.png')
+            main.addDir('BDRip','http://www.scenesource.me/category/films/bdrip/',389,art+'/scenesource.png')
+            main.addDir('BluRay','http://www.scenesource.me/category/films/bluray/',389,art+'/scenesource.png')
+            main.addDir('DVDRip','http://www.scenesource.me/category/films/dvdrip/',389,art+'/scenesource.png')
+            main.addDir('DVDSCR','http://www.scenesource.me/category/films/dvdscr/',389,art+'/scenesource.png')
+            main.addDir('CAM','http://www.scenesource.me/category/films/cam/',389,art+'/scenesource.png')
+            main.addDir('R5','http://www.scenesource.me/category/films/r5/',389,art+'/scenesource.png')
         elif murl=='tvshows':
             main.GA(prettyName,"Tv")
-            main.addDir('All TV Shows','http://www.scenesource.me/tv/',391,art+'/scenesource.png')
-            main.addDir('DVD','http://www.scenesource.me/tv/dvd/',389,art+'/scenesource.png')
-            main.addDir('Sports','http://www.scenesource.me/tv/sports-tv/',391,art+'/scenesource.png')
-            main.addDir('PREAIR','http://www.scenesource.me/tv/preair/',391,art+'/scenesource.png')
+            main.addDir('All TV Shows','http://www.scenesource.me/category/tv/',391,art+'/scenesource.png')
+            main.addDir('DVD','http://www.scenesource.me/category/tv/dvd/',389,art+'/scenesource.png')
+            main.addDir('Sports','http://www.scenesource.me/category/tv/sports-tv/',391,art+'/scenesource.png')
+            main.addDir('PREAIR','http://www.scenesource.me/category/tv/preair/',391,art+'/scenesource.png')
         main.VIEWSB2()
 
 def SearchhistorySCENE():
@@ -54,11 +54,12 @@ def superSearch(encode,type):
     try:
         returnList=[]
         if not encode: return returnList
-        surl='http://www.scenesource.me/?s='+encode
-        link = main.OPENURL(surl,verbose=False)
+        surl='http://www.scenesource.me/?s='+encode+'&x=0&y=0'
+        link = main.OPENURL(surl,verbose=False,mobile=True)
         link=link.replace('\xc2\xa0','').replace('\n','')
         match=re.compile('<a href="([^<]+)" rel="bookmark" title=".+?>([^<]+)</a></h2>').findall(link)
         for url,name in match:
+            name=main.CleanTitle(name)
             if type=='Movies' and not re.findall('\ss(\d+)e(\d+)',name,re.I) or type=='TV' and re.findall('\ss(\d+)e(\d+)',name,re.I):
                 returnList.append((name,prettyName,url,'',390,False))
     
@@ -70,12 +71,13 @@ def SEARCHSCENE(encode):
         if encode=='sec':
                 encode = main.updateSearchFile('','Movies',searchMsg='Search For Movies or TV Shows')
                 if not encode: return False
-        surl='http://www.scenesource.me/?s='+encode
-        link=main.OPENURL(surl)
+        surl='http://www.scenesource.me/?s='+encode+'&x=0&y=0'
+        link=main.OPENURL(surl,mobile=True)
         i=0
         link=link.replace('\xc2\xa0','').replace('\n','')
         match=re.compile('<a href="([^<]+)" rel="bookmark" title=".+?>([^<]+)</a></h2>').findall(link)
         for url,name in match:
+            name=main.CleanTitle(name)    
             if re.findall('(.+?)\ss(\d+)e(\d+)\s',name,re.I):
                 main.addPlayTE(name,url,390,'','','','','','')
             else:
@@ -86,7 +88,7 @@ def LISTMOVIES(murl):
     main.GA(prettyName,"List")   
     link=main.OPENURL(murl)
     link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','').replace('\\','')
-    match=re.compile('''<a href="([^<]+)" rel="bookmark" title=".+?">(.+?)</a></h2><div.+?<img.+?src="(.+?)"''',re.DOTALL).findall(link)
+    match=re.compile('''<a href="([^<]+)" rel="bookmark" title=".+?">(.+?)</a></h2><div.+?<img.+?src="(.+?)".*?http://www.imdb.com/title/([t\d]+?)[/"']''',re.DOTALL).findall(link)
     dialogWait = xbmcgui.DialogProgress()
     ret = dialogWait.create('Please wait until Movie list is cached.')
     totalLinks = len(match)
@@ -94,7 +96,8 @@ def LISTMOVIES(murl):
     remaining_display = 'Movies loaded :: [B]'+str(loadedLinks)+' / '+str(totalLinks)+'[/B].'
     dialogWait.update(0,'[B]Will load instantly from now on[/B]',remaining_display)
     xbmc.executebuiltin("XBMC.Dialog.Close(busydialog,true)")
-    for url,name,thumb in match:
+    for url,name,thumb,imdb in match:
+        name=main.CleanTitle(name)
         if re.findall('\ss(\d+)\s',name,re.I):
             main.addPlayT(name,url,390,thumb,'','','','','')
         else:
@@ -103,14 +106,13 @@ def LISTMOVIES(murl):
         percent = (loadedLinks * 100)/totalLinks
         remaining_display = 'Movies loaded :: [B]'+str(loadedLinks)+' / '+str(totalLinks)+'[/B].'
         dialogWait.update(percent,'[B]Will load instantly from now on[/B]',remaining_display)
-        if (dialogWait.iscanceled()):
-                return False   
+        if dialogWait.iscanceled(): break
     dialogWait.close()
     del dialogWait
-    paginate = re.compile('<a class="nextpostslink" href="([^"]+)"').findall(link)
-    if len(paginate)>0:
+    paginate = re.compile('<a class="nextpostslink"[^>]+?href="([^"]+)"').findall(link)
+    if paginate and loadedLinks >= totalLinks:
         main.addDir('Next',paginate[0],389,art+'/next2.png')
-
+    main.VIEWS()
 
 def LISTTV(murl):
         link=main.OPENURL(murl)
@@ -123,6 +125,7 @@ def LISTTV(murl):
         remaining_display = 'Episodes loaded :: [B]'+str(loadedLinks)+' / '+str(totalLinks)+'[/B].'
         dialogWait.update(0,'[B]Will load instantly from now on[/B]',remaining_display)
         for url,name,thumb in match:
+            name=main.CleanTitle(name)
             thumb=thumb.replace('"','').replace(",",'')
             main.addPlayTE(name,url,390,thumb,'','','','','')
             loadedLinks = loadedLinks + 1
@@ -133,12 +136,11 @@ def LISTTV(murl):
                     return False
         dialogWait.close()
         del dialogWait
-        paginate = re.compile('<a class="nextpostslink" href="([^"]+)"').findall(link)
+        paginate = re.compile('<a class="nextpostslink" [^>]*?href="([^"]+)"').findall(link)
         if len(paginate)>0:
             main.addDir('Next',paginate[0],391,art+'/next2.png')
 
 def VIDEOLINKSSCENE(mname,murl,thumb):
-        import urlresolver
         main.GA(prettyName,"Watched")
         msg = xbmcgui.DialogProgress()
         msg.create('Please Wait!','')
@@ -171,6 +173,10 @@ def VIDEOLINKSSCENE(mname,murl,thumb):
             if msg.iscanceled(): break
             vlink=re.compile('rar|part\d+?(\.html)?$|/folder/').findall(url)
             if len(vlink)==0:
+                url = re.sub('(?i)\.html$','',url)
+                filename = re.compile('(?i)/([^/]*?\..{3,4})$').findall(url)
+                if filename: filename = " [" + filename[0] + "]"
+                else: filename = ""
                 firstword = mname.partition(' ')[0]
                 if re.search('(?i)'+mname.partition(' ')[0],url):
                     if re.search('(?i)1080p?',mname):
@@ -200,7 +206,7 @@ def VIDEOLINKSSCENE(mname,murl,thumb):
                 else:
                     host =host+' [COLOR blue]SD[/COLOR]'
                 if main.supportedHost(hostname):
-                    titles.append(host)
+                    titles.append( host + filename )
                     sources.append(url)
         msg.close()
         if (len(sources)==0):

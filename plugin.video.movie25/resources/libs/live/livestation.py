@@ -15,33 +15,50 @@ wh = watchhistory.WatchHistory('plugin.video.movie25')
 
 def LivestationList(murl):
         main.GA("Live","Livestation")
-        link=main.OPENURL('https://raw.github.com/mash2k3/MashUpStreams/master/livestation.xml')
+        link=main.OPENURL('http://www.livestation.com/en/channels')
         link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
-        match=re.compile('<title>([^<]+)</title.+?link>([^<]+)</link.+?thumbnail>([^<]+)</thumbnail>').findall(link)
-        for name,url,thumb in sorted(match):
-            main.addPlayL(name,url,118,thumb,'','','','','',secName='Livestation News',secIcon=art+'/livestation.png')
+        match=re.compile('''<a href="([^"]+?)" class=".+?" data-action=".+?<img alt=".+?" itemprop=".+?" src="([^"]+?)" title="([^"]+?)" /></a>(.+?)<div id='channel_description'><p>([^<]+?)</p></div>''').findall(link)
+        for url,thumb,name,data,desc in sorted(match):
+                if 'language_selector' in url:
+                        main.addPlayL(name,data,118,thumb,'','','','','',secName='Livestation News',secIcon=art+'/livestation.png')
+                else:
+                    url='http://www.livestation.com'+url
+                    main.addPlayL(name,url,118,thumb,'','','','','',secName='Livestation News',secIcon=art+'/livestation.png')
                        
                        
 
 
 def LivestationLink(mname,murl,thumb):
         link=main.OPENURL(murl)
-        link=link.replace('href="/en/sessions/new','').replace('href="/en/contacts/new">','').replace('href="/redirect?locale=en">','')
         link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
-        match= re.compile('<li><a href="(.+?)">(.+?)</a></li>').findall(link)
-        if len(match)>1:
-            for url, name in match:
-                main.addPlayL(mname+' '+name,'http://mobile.livestation.com'+url,118,thumb,'','','','','',secName='Livestation News',secIcon=art+'/livestation.png')
-        else:
-            LivestationLink2(mname,murl,thumb)
+        match= re.compile('ipadUrl: "([^"]+?)",').findall(link)
+        if match:
+                LivestationLink2(mname,match[0],thumb)
             
 def LivestationLink2(mname,murl,thumb):
         main.GA("Livestation-"+mname,"Watched")
         ok=True
+        namelist=[]
+        urllist=[]
         playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
         playlist.clear()
+        if 'class="ga_track"' in murl:                
+                match= re.findall('<a href="([^"]+?)" class="ga_track" data-action="([^"]+?)"',murl)
+                for url,name in match:
+                        url='http://www.livestation.com'+url
+                        namelist.append(name)
+                        urllist.append(url)
+                dialog = xbmcgui.Dialog()
+                answer =dialog.select("Pick A Language", namelist)
+                if answer != -1:
+                        murl=urllist[int(answer)]
+        link=main.OPENURL(murl)
+        link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
+        match= re.compile('ipadUrl: "([^"]+?)",').findall(link)
+        if match:
+                stream_url =match[0].replace('b_,264,528,828,','b_528')
         xbmc.executebuiltin("XBMC.Notification(Please Wait!,Playing Link,1000)")
-        stream_url =murl
+        
         listitem = xbmcgui.ListItem(thumbnailImage=thumb)
         infoL={'Title': mname, 'Genre': 'Live'} 
         from resources.universal import playbackengine

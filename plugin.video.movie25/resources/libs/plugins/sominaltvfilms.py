@@ -77,7 +77,8 @@ def LIST(mname,murl):
                 main.addDir('Dubbed BluRay','http://www.playindiafilms.com/hindi-dubbed-blurays',620,art+'/bluray.png')
         link=main.OPENURL(murl)
         link=link.replace('\r','').replace('\n','').replace('\t','').replace('&nbsp;','')
-        match=re.compile("""<img src="([^"]+?)" alt="([^"]+?)"/> </a> </figure>.+?class="title"> <b><a href='([^']+?)'>.+?<div class='description'><div class='excerpt'><p>(.+?)...""").findall(link)
+        
+        match=re.compile("""<img src="([^"]+?)" alt="([^"]+?)"/></a>.+?class="title"><b><a href='([^']+?)'>.+?</b>.+?class='description'><div class='excerpt'><p>(.+?)...""").findall(link)
                                                         
         dialogWait = xbmcgui.DialogProgress()
         ret = dialogWait.create('Please wait until Show list is cached.')
@@ -97,7 +98,7 @@ def LIST(mname,murl):
                     return False   
         dialogWait.close()
         del dialogWait
-        paginate = re.compile("""<a class="nextpostslink" href="(.+?)">.+?</a>""").findall(link)
+        paginate = re.compile("""rel="next" href="(.+?)">.+?</a>""").findall(link)
         if len(paginate)>0:
             main.addDir('Next',paginate[0],620,art+'/next2.png')
         main.VIEWS()
@@ -158,7 +159,6 @@ def getvideo2(murl,answer=''):
                 if docUrl: docUrl=docUrl[0]
                 else:
                     link3=dekode(link2)
-                    print link3
                     try:
                         docid= re.compile('docid=(.+?)\&').findall(link3)
                         if docid:
@@ -180,7 +180,6 @@ def getvideo2(murl,answer=''):
         
 
                 if docUrl:
-                        print docUrl
                         xbmc.executebuiltin("XBMC.Notification(Please Wait!,Collecting Links,3000)")
                         stream_url = main.resolve_url(docUrl.replace('\/','/'))
                         return stream_url
@@ -203,7 +202,6 @@ def LINK2(mname,murl,thumb,desc):
         main.GA("SominalTv","Watched")
         if murl:
                 if "'," in murl:
-                    print murl
                     mname=main.removeColoredText(mname)
                     pl=xbmc.PlayList(1);pl.clear()
                     playlist = sorted(list(set(eval(murl))), key=lambda playlist: playlist[0])

@@ -111,6 +111,7 @@ def LISTHOSTS(name,murl,thumb):
     videoweed=[]
     cheesestream=[]
     videofun=[]
+    yucache=[]
     i=1
     j=1
     v=1
@@ -118,6 +119,7 @@ def LISTHOSTS(name,murl,thumb):
     vw=1
     c=1
     vf=1
+    y=1
     if 'GetDetails' in murl:
         link=main.OPENURL(murl)
         idnum=re.findall('"id":"(.+?)"',link,re.DOTALL)[0]
@@ -126,7 +128,7 @@ def LISTHOSTS(name,murl,thumb):
     link=main.OPENURL('http://api.dramago.com/GetVideos/'+idnum).replace('\/','/')
     collect=re.findall('"(.+?)"',link,re.DOTALL)
     for links in collect:
-        if 'videobug' in links:
+        if 'videobug' in links or 'easyvideo' in links:
             main.addDown2(name+' [COLOR blue]VideoBug Part '+str(i)+'[/COLOR]',links,272,thumb,'')
             videobug.append(('Part '+str(i),links))
             i=i+1
@@ -140,14 +142,14 @@ def LISTHOSTS(name,murl,thumb):
     if yourupload :
         main.addDown2(name+' [COLOR yellow]YourUpload Play All[/COLOR]',str(yourupload),272,thumb,'')
     for links in collect:
-        if 'video44' in links:
+        if 'video44' in links or 'video66' in links:
             main.addDown2(name+' [COLOR red]Video44 Part '+str(v)+'[/COLOR]',links,272,thumb,'')
             video44.append(('Part '+str(v),links))
             v=v+1
     if video44:
         main.addDown2(name+' [COLOR red]Video44 Play All[/COLOR]',str(video44),272,thumb,'')
     for links in collect:
-        if 'play44' in links:
+        if 'play44' in links or 'play66' in links or 'playbb' in links:
             main.addDown2(name+' [COLOR green]Play44 Part '+str(p)+'[/COLOR]',links,272,thumb,'')
             play44.append(('Part '+str(p),links))
             p=p+1
@@ -174,10 +176,17 @@ def LISTHOSTS(name,murl,thumb):
             vf=vf+1
     if videofun:
         main.addDown2(name+' [COLOR maroon]Videofun Play All[/COLOR]',str(videofun),272,thumb,'')
+    for links in collect:
+        if 'yucache' in links:
+            main.addDown2(name+' [COLOR maroon]Yucache Part '+str(y)+'[/COLOR]',links,272,thumb,'')
+            yucache.append(('Part '+str(y),links))
+            y=y+1
+    if yucache:
+        main.addDown2(name+' [COLOR maroon]Yucache Play All[/COLOR]',str(yucache),272,thumb,'')
 
 
 def getLink(links):
-        if 'videobug' in links:
+        if 'videobug' in links or 'easyvideo' in links:
             link=main.OPENURL(links)
             try:match=re.compile("playlist:.+?url: '(.+?)',",re.DOTALL).findall(link)[0]
             except:match=re.compile('file: "(.+?)",',re.DOTALL).findall(link)[0]
@@ -189,12 +198,12 @@ def getLink(links):
                 if len(match)!=0:
                     match=urllib.unquote_plus(match[0])
             except:pass
-        if 'video44' in links:
+        if 'video44' in links or 'video66' in links:
             link=main.OPENURL(links)
             try:match=re.compile("playlist:.+?url: '(.+?)',",re.DOTALL).findall(link)[0]
             except:match=re.compile('file: "(.+?)"',re.DOTALL).findall(link)[0]
             match=urllib.unquote_plus(match)
-        if 'play44' in links:
+        if 'play44' in links or 'play66' in links or 'playbb' in links:
             link=main.OPENURL(links)
             try:match=re.compile("playlist:.+?url: '(.+?)',",re.DOTALL).findall(link)[0]
             except:match=re.compile('file: "(.+?)"',re.DOTALL).findall(link)[0]
@@ -210,7 +219,12 @@ def getLink(links):
             match=urllib.unquote_plus(match)
         if 'videofun' in links:
             link=main.OPENURL(links)
-            try:match=re.compile("""'fit'},.+?{url: "([^<]+)", autoPlay""",re.DOTALL).findall(link)[0]
+            try:match=re.compile("""'fit'},.+?{url: "([^"]+)", autoPlay""",re.DOTALL).findall(link)[0]
+            except:pass
+            match=urllib.unquote_plus(match)
+        if 'yucache' in links:
+            link=main.OPENURL(links)
+            try:match=re.compile("""'<source src="([^"]+)" />';""",re.DOTALL).findall(link)[0]
             except:pass
             match=urllib.unquote_plus(match)
         return match

@@ -63,70 +63,76 @@ def processTitle(title,quality):
     return quality.strip()
             
 def LISTSCEPER(name,murl):
-        main.GA("Sceper","List")
-        link=main.OPENURL(murl, timeout = 10)
-        i=0
-        audiolist=[]
-        desclist=[]
-        genrelist=[]
-        link=link.replace('\xc2\xa0','').replace('\n','')
-        audio=re.compile('>Audio:</.+?>([^<]+?)<').findall(link)
-        if len(audio)>0:
-            for aud in audio:
-                audiolist.append(aud)
-        else:
-            audiolist.append('Audio Unknown')
-        descr=re.compile('>Release Description</div><p>([^<]+?)</p>').findall(link)
-        if len(descr)>0:
-            for desc in descr:
-                desc=desc.replace('</span><span style="font-family: arial"> ','').replace('<span style="color: #ff0000;">','').replace('</span>','')
-                desclist.append(desc)
-        else:
-            desclist.append('Description Unavailable')
-        genre=re.compile('>Genre:</span>([^<]+?)<br').findall(link)
-        if len(genre)>0:
-            for gen in genre:
-                gen=gen.replace('</span><span style="font-family: arial"> ','').replace('<span style="color: #ff0000;">','').replace('</span>','')
-                genrelist.append(gen)
-        else:
-            genrelist.append('Genre Unknown')
-        match=re.compile('<a href="([^<]+)">([^<]+)</a></h2>\t\t<div class="[^"]+?">\t\t\t\t<div class="[^"]+?">Release Info</div><p><a href="([^"]+?)"').findall(link)
-        if match:
-            main.addDir('Search','s',543,art+'/search.png')
-        dialogWait = xbmcgui.DialogProgress()
-        ret = dialogWait.create('Please wait until Movie list is cached.')
-        totalLinks = len(match)
-        loadedLinks = 0
-        remaining_display = 'Movies loaded :: [B]'+str(loadedLinks)+' / '+str(totalLinks)+'[/B].'
-        dialogWait.update(0,'[B]Will load instantly from now on[/B]',remaining_display)
-        for url,name,thumb in match:
-            
-            if len(audiolist)<8:
-                audiolist.append('Audio Unknown')
-            if len(desclist)<8:
-                desclist.append('Description Unavailable')
-            if len(genrelist)<8:
-                genrelist.append('Genre Unknown')
-            sname=name
-            data=re.findall('([^<]+)\s\(?(\d{4})\)?\s([^<]+)',sname)
-            for title,date,quality in data:
-                sname = processTitle(title,quality)
-                name=title+' ('+date+') '+sname
-            main.addPlayM(name.strip()+' [COLOR blue]'+audiolist[i].strip()+'[/COLOR]',url,544,thumb,desclist[i],'','',genrelist[i],'')
-            i=i+1
-            loadedLinks = loadedLinks + 1
-            percent = (loadedLinks * 100)/totalLinks
-            remaining_display = 'Movies loaded :: [B]'+str(loadedLinks)+' / '+str(totalLinks)+'[/B].'
-            dialogWait.update(percent,'[B]Will load instantly from now on[/B]',remaining_display)
-            if (dialogWait.iscanceled()):
-                    return False
-        dialogWait.close()
-        del dialogWait
-        paginate = re.compile('<a class="nextpostslink" href="([^"]+)"').findall(link)
-        if len(paginate)>0:
-            main.addDir('Next',paginate[0],541,art+'/next2.png')
+    main.GA("Sceper","List")
+    link=main.OPENURL(murl, timeout = 10,cookie="sceper")
+    if "setCookie(" in link:
+        import time
+        from cookielib import Cookie
+        cookieList = []
+        t = time.time() + 259200
+        c = Cookie(version=False, name='hasVisitedSite', value='Yes', port=None, port_specified=False, domain='', domain_specified=False, domain_initial_dot=False, path='/', path_specified=True, secure=False, expires=t, discard=True, comment=None, comment_url=None, rest={}, rfc2109=False)
+        cookieList.append(c)
+        link=main.OPENURL(murl, timeout = 10,cookie="sceper",setCookie=cookieList)
+    i=0
+    audiolist=[]
+    desclist=[]
+    genrelist=[]
+    link=link.replace('\xc2\xa0','').replace('\n','')
+    audio=re.compile('>Audio:</.+?>([^<]+?)<').findall(link)
+    if len(audio)>0:
+        for aud in audio:
+            audiolist.append(aud)
+    else:
+        audiolist.append('Audio Unknown')
+    descr=re.compile('>Release Description</div><p>([^<]+?)</p>').findall(link)
+    if len(descr)>0:
+        for desc in descr:
+            desc=desc.replace('</span><span style="font-family: arial"> ','').replace('<span style="color: #ff0000;">','').replace('</span>','')
+            desclist.append(desc)
+    else:
+        desclist.append('Description Unavailable')
+    genre=re.compile('>Genre:</span>([^<]+?)<br').findall(link)
+    if len(genre)>0:
+        for gen in genre:
+            gen=gen.replace('</span><span style="font-family: arial"> ','').replace('<span style="color: #ff0000;">','').replace('</span>','')
+            genrelist.append(gen)
+    else:
+        genrelist.append('Genre Unknown')
+    match=re.compile('<a href="([^<]+)">([^<]+)</a></h2>\t\t<div class="[^"]+?">\t\t\t\t<div class="[^"]+?">Release Info</div><p><a href="([^"]+?)"').findall(link)
+    if match:
+        main.addDir('Search','s',543,art+'/search.png')
+    dialogWait = xbmcgui.DialogProgress()
+    ret = dialogWait.create('Please wait until Movie list is cached.')
+    totalLinks = len(match)
+    loadedLinks = 0
+    remaining_display = 'Movies loaded :: [B]'+str(loadedLinks)+' / '+str(totalLinks)+'[/B].'
+    dialogWait.update(0,'[B]Will load instantly from now on[/B]',remaining_display)
+    for url,name,thumb in match:
         
-
+        if len(audiolist)<8:
+            audiolist.append('Audio Unknown')
+        if len(desclist)<8:
+            desclist.append('Description Unavailable')
+        if len(genrelist)<8:
+            genrelist.append('Genre Unknown')
+        sname=name
+        data=re.findall('([^<]+)\s\(?(\d{4})\)?\s([^<]+)',sname)
+        for title,date,quality in data:
+            sname = processTitle(title,quality)
+            name=title+' ('+date+') '+sname
+        main.addPlayM(name.strip()+' [COLOR blue]'+audiolist[i].strip()+'[/COLOR]',url,544,thumb,desclist[i],'','',genrelist[i],'')
+        i=i+1
+        loadedLinks = loadedLinks + 1
+        percent = (loadedLinks * 100)/totalLinks
+        remaining_display = 'Movies loaded :: [B]'+str(loadedLinks)+' / '+str(totalLinks)+'[/B].'
+        dialogWait.update(percent,'[B]Will load instantly from now on[/B]',remaining_display)
+        if dialogWait.iscanceled(): break
+    dialogWait.close()
+    del dialogWait
+    paginate = re.compile('<a class="nextpostslink" rel="next" href="([^"]+)">').findall(link)
+    if paginate and loadedLinks >= totalLinks:
+        main.addDir('Next',paginate[0],541,art+'/next2.png')
+    main.VIEWS()
 
 def LISTSCEPER2(name,murl):
         link=main.OPENURL(murl, timeout = 10)
@@ -139,6 +145,7 @@ def LISTSCEPER2(name,murl):
         remaining_display = 'Episodes loaded :: [B]'+str(loadedLinks)+' / '+str(totalLinks)+'[/B].'
         dialogWait.update(0,'[B]Will load instantly from now on[/B]',remaining_display)
         for url,name,thumb in match:
+            name=main.CleanTitle(name)
             main.addPlayTE(name,url,544,thumb,'','','','','')
             loadedLinks = loadedLinks + 1
             percent = (loadedLinks * 100)/totalLinks
@@ -148,7 +155,7 @@ def LISTSCEPER2(name,murl):
                     return False
         dialogWait.close()
         del dialogWait
-        paginate = re.compile('<a class="nextpostslink" href="([^"]+)"').findall(link)
+        paginate = re.compile('<a class="nextpostslink" rel="next" href="([^"]+)">').findall(link)
         if len(paginate)>0:
             main.addDir('Next',paginate[0],545,art+'/next2.png')
 
@@ -176,6 +183,7 @@ def superSearch(encode,type):
         link=link.replace('\xc2\xa0','').replace('\n','')
         match=re.compile('<a href="([^<]+)">([^<]+)</a></h2>').findall(link)
         for url,name in match:
+            name=main.CleanTitle(name)
             if type=='Movies' and not re.findall('(.+?)\ss(\d+)e(\d+)',name,re.I) or type=='TV' and re.findall('(.+?)\ss(\d+)e(\d+)',name,re.I):
                 returnList.append((name,prettyName,url,'',544,False))
         return returnList
@@ -186,11 +194,12 @@ def SEARCHSCEPER(murl = ''):
         encode = main.updateSearchFile(murl,'Movies',searchMsg='Search For Movies or TV Shows')
         if not encode: return False   
         surl='http://sceper.ws/search/'+encode+'/'
-        link=main.OPENURL(surl)
+        link=main.OPENURL(surl,cookie="sceper")
         i=0
         link=link.replace('\xc2\xa0','').replace('\n','')
         match=re.compile('<a href="([^<]+)">([^<]+)</a></h2>').findall(link)
         for url,name in match:
+            name=main.CleanTitle(name)
             if re.findall('(.+?)\ss(\d+)e(\d+)\s',name,re.I):
                 main.addPlayTE(name,url,544,'','','','','','')
             else:
@@ -203,7 +212,7 @@ def VIDEOLINKSSCEPER(mname,murl,thumb):
         msg = xbmcgui.DialogProgress()
         msg.create('Please Wait!','')
         msg.update(0,'Collecting hosts')
-        link=main.OPENURL(murl)
+        link=main.OPENURL(murl, cookie="sceper")
         sources=[]
         titles=[]
         ok=True
@@ -236,12 +245,17 @@ def VIDEOLINKSSCEPER(mname,murl,thumb):
         h = 0
         from urlparse import urlparse
         for url in match:
+            url = url.strip()
             h += 1
             percent = (h * 100)/hostsmax
             msg.update(percent,'Collecting hosts - ' + str(percent) + '%')
             if msg.iscanceled(): break
             vlink=re.compile('rar|part\d+?(\.html)?$|/folder/').findall(url)
             if len(vlink)==0:
+                url = re.sub('(?i)\.html$','',url)
+                filename = re.compile('(?i)/([^/]*?\..{3,4})$').findall(url)
+                if filename: filename = " [" + filename[0] + "]"
+                else: filename = ""
                 firstword = mname.partition(' ')[0]
                 if re.search('(?i)'+mname.partition(' ')[0],url):
                     if re.search('(?i)1080p?',mname):
@@ -272,7 +286,7 @@ def VIDEOLINKSSCEPER(mname,murl,thumb):
                 else:
                     host =host+' [COLOR blue]SD[/COLOR]'
                 if main.supportedHost(hostname):
-                    titles.append(host)
+                    titles.append(host + filename)
                     sources.append(url)
         msg.close()
         if (len(sources)==0):

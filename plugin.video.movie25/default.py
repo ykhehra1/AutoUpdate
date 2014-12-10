@@ -97,16 +97,16 @@ def MAIN():
             main.addDirHome('LIVE & VOD','http://www.movie25.com/',156,art+'/live.png')
         elif index==26:
             main.addDirHome('HackerMils Stash','https://raw.github.com/HackerMil/HackerMilsMovieStash/master/Directory/HackerMil_Directory.xml',235,art+'/hackermil.png')
-        #elif index==29:
-            #main.addDirHome('BDTV 2','http://tuzla.watchkodi.com/maindir/main.xml',235,art+'/staael2014.png')
-        #elif index==34:
-            #main.addDirHome('BDTV 6','http://cairo.watchkodi.com/maindir/main.xml',235,art+'/demon88.png')
-        #elif index==37:
-            #main.addDirHome('BDTV 3','http://gibraltar.watchkodi.com/maindir/main.xml',235,art+'/one252515.png')
-        #elif index==31:
-            #main.addDirHome("K1M05's Streams",'https://dl.dropboxusercontent.com/u/138808030/mashxmldir/phstreams.xml',181,art+'/k1m05.png')
-        #elif index==32:
-            #main.addDirHome('BDTV Sports','https://dl.dropboxusercontent.com/u/90916090/textfiles/MashUpNotifications/Mashsprt.xml',182,art+'/mashsports.png')
+        elif index==29:
+            main.addDirHome('BDTV 2','http://tuzla.watchkodi.com/maindir/main.xml',235,art+'/staael2014.png')
+        elif index==34:
+            main.addDirHome('BDTV 6','http://cairo.watchkodi.com/maindir/main.xml',235,art+'/demon88.png')
+        elif index==37:
+            main.addDirHome('BDTV 3','http://gibraltar.watchkodi.com/maindir/main.xml',235,art+'/one252515.png')
+        elif index==31:
+            main.addDirHome("K1M05's Streams",'https://dl.dropboxusercontent.com/u/138808030/mashxmldir/phstreams.xml',181,art+'/k1m05.png')
+        elif index==32:
+            main.addDirHome('BDTV Sports','https://dl.dropboxusercontent.com/u/90916090/textfiles/MashUpNotifications/Mashsprt.xml',182,art+'/mashsports.png')
         elif index==33:
             main.addDirHome('iLive Streams','ilive',119,art+'/ilive.png')
         elif index==35:

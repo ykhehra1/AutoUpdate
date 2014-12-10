@@ -136,6 +136,9 @@ def Announcements():
     if r:
         match=re.compile('<item><new>(.+?)</new><message1>.+?</message1><message2>.+?</message2><message3>.+?</message3><ANNOUNCEMENT>(.+?)</ANNOUNCEMENT><old>(.+?)</old></item>').findall(link)
         if match:
+    		mes1=mes1.replace('HMStash','bdtvbox').replace('@Hackermil','bdtvbox@gmail.com')
+    		mes2=mes2.replace('HMStash','bdtvbox').replace('@Hackermil','bdtvbox@gmail.com')
+    		mes3=mes3.replace('HMStash','bdtvbox').replace('@Hackermil','bdtvbox@gmail.com')
             for new,anounce,old in match: continue
             if new != ' ':
                 runonce=os.path.join(main.datapath,'RunOnce')
@@ -158,9 +161,6 @@ def Announcements():
                 notified=os.path.join(runonce,str(new))
                 if not os.path.exists(notified):
                     open(notified,'w').write('version="%s",'%new)
-					mes1=mes1.replace('HMStash','bdtvbox').replace('@Hackermil','bdtvbox@gmail.com')
-					mes2=mes2.replace('HMStash','bdtvbox').replace('@Hackermil','bdtvbox@gmail.com')
-					mes3=mes3.replace('HMStash','bdtvbox').replace('@Hackermil','bdtvbox@gmail.com')
                     dialog = xbmcgui.Dialog()
                     ok=dialog.ok('[B]Important Announcement![/B]', str(mes1) ,str(mes2),str(mes3))
                 if old != ' ':

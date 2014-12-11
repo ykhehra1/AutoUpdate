@@ -94,7 +94,7 @@ def MAIN():
         elif index==23:
             main.addDirHome('Documentaries','http://www.movie25.so/',85,art+'/docsec1.png')
         elif index==24:
-            main.addDirHome('LIVE & VOD','http://www.movie25.com/',156,art+'/live.png')
+            main.addDirHome('[COLOR green]LIVE[/COLOR] & [COLOR gold]VOD[/COLOR]','http://www.movie25.com/',156,art+'/live.png')
         elif index==26:
             main.addDirHome('HackerMils Stash','https://raw.github.com/HackerMil/HackerMilsMovieStash/master/Directory/HackerMil_Directory.xml',235,art+'/hackermil.png')
         elif index==29:

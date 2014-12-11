@@ -26,7 +26,7 @@ def VIPplaylists(murl):
                 fan=f[0]
         else:
                 fan=art+'/fanart2.jpg'
-        match=re.compile('<notify><new>(.+?)</new><message1>(.+?)</message1><message2>(.+?)</message2><message3>(.+?)</message3><old>(.+?)</old></notify>').findall(link)
+        match=re.compile('<notify><new>(.+?)</new><mess1>(.+?)</mess1><mess2>(.+?)</mess2><mess3>(.+?)</mess3><old>(.+?)</old></notify>').findall(link)
         if len(match)>0:
             for new,mes1,mes2,mes3,old in match: continue
             if new != ' ':
@@ -54,7 +54,7 @@ def VIPplaylists(murl):
         match=re.compile('<name>([^<]+)</name><link>([^<]+)</link><thumbnail>([^<]+)</thumbnail><date>([^<]+)</date>').findall(link)
         for name,url,thumb,date in match:
             main.addDirc(name+' [COLOR red] Updated '+date+'[/COLOR]',url,182,thumb,'',fan,'','','')
-        info=re.findall('<info><message>(.+?)</message><thumbnail>(.+?)</thumbnail></info>',link)
+        info=re.findall('<info><mess>(.+?)</mess><thumbnail>(.+?)</thumbnail></info>',link)
         if info:
             for msg,pic in info:
                 main.addLink(msg,'',pic)
@@ -77,7 +77,7 @@ def VIPList(mname,murl):
                 fan=f[0]
         else:
                 fan=art+'/fanart2.jpg'
-        info=re.findall('<info><message>(.+?)</message><thumbnail>(.+?)</thumbnail></info>',link)
+        info=re.findall('<info><mess>(.+?)</mess><thumbnail>(.+?)</thumbnail></info>',link)
         if info:
             for msg,pic in info:
                 main.addLink(msg,'',pic)

@@ -134,7 +134,7 @@ def Announcements():
     except: link='nill'
     r = re.findall(r'ANNOUNCEMENTWINDOW ="ON"',link)
     if r:
-        match=re.compile('<item><new>(.+?)</new><message1>.+?</message1><message2>.+?</message2><message3>.+?</message3><ANNOUNCEMENT>(.+?)</ANNOUNCEMENT><old>(.+?)</old></item>').findall(link)
+        match=re.compile('<item><new>(.+?)</new><mess1>.+?</mess1><mess2>.+?</mess2><mess3>.+?</mess3><ANNOUNCEMENT>(.+?)</ANNOUNCEMENT><old>(.+?)</old></item>').findall(link)
         if match:
             for new,anounce,old in match: continue
             if new != ' ':
@@ -150,7 +150,7 @@ def Announcements():
             else: print 'No Messages'
         else: print 'Github Link Down'
     else:
-        match=re.compile('<item><new>(.+?)</new><message1>(.+?)</message1><message2>(.+?)</message2><message3>(.+?)</message3><ANNOUNCEMENT>.+?</ANNOUNCEMENT><old>(.+?)</old></item>').findall(link)
+        match=re.compile('<item><new>(.+?)</new><mess1>(.+?)</mess1><mess2>(.+?)</mess2><mess3>(.+?)</mess3><ANNOUNCEMENT>.+?</ANNOUNCEMENT><old>(.+?)</old></item>').findall(link)
         if match:
             for new,mes1,mes2,mes3,old in match: continue
             if new != ' ':
